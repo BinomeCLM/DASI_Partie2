@@ -67,7 +67,7 @@ public class Saisie {
     public static void main(String[] args) {
         JpaUtil.init();
         InitService is = new InitService();
-        //is.fillDB();
+        is.fillDB();
         home();
         JpaUtil.destroy();
     }
