@@ -43,8 +43,9 @@ public class ActionInscription extends Action {
         
         Client cl = new Client(civilite,prenom,nom,dateNaissance,adresse,telephone,mail);
         ClientService clServ = new ClientService();
+        System.out.println(cl);
         boolean success = clServ.inscription(cl);
-        
+        System.out.println(success);
         request.setAttribute("success", success);
         
     }

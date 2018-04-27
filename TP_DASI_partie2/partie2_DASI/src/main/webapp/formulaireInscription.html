@@ -10,9 +10,11 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <!-- mettre un lien vers le fichier js -->
     </head>
     <body>
         <h1>S'inscrire</h1>
+        <div id="msgErreur"></div>
         <form method="POST">
             <label for="civilite">Civilité</label>
             <select name="civilite" id="civilite">
@@ -51,7 +53,6 @@ and open the template in the editor.
             });
             
             function inscription() {
-                alert("test1");
                 $.ajax({
                     url:'./ActionServlet',
                     type:'POST',
@@ -65,13 +66,18 @@ and open the template in the editor.
                         mail: $('#mail').val(),
                         adresse: $('#adresse').val()
                     },
-                    dataType:'json'
+                    dataType:'text'
                 })
-                .done(function(){
-                    alert('done');
-                    window.location="confEnvoieMail.html";
+                .done(function(data){
+                    alert(data);
+                    if (data){
+                        window.location="confEnvoieMail.html";
+                    }
+                    else {
+                        alert('done_erreur');
+                        $('#msgErreur').html("Erreur lors de l'inscription");
+                    }
                 });
-                alert("test2");
             };
             
         </script>

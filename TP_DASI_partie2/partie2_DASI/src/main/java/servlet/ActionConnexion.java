@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,7 +30,7 @@ public class ActionConnexion extends Action {
         
         ClientService clServ = new ClientService();
         Client cl = clServ.connexion(courriel);
-        
+        System.out.println(cl);
         request.setAttribute("client", cl);
     }
 }

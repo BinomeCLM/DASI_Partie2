@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Connexion</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <h1>S'identifier</h1>
+        <p id="connexionFail"></p>
+        <form>
+            <label for="courriel">Courriel </label>
+            <input type="text" id="courriel" name="courriel"/>
+            </br>
+            <input id="seConnecter" type="button" value="Accéder au service" />
+        </form>
+        <div id="traitementConnexion"></div>
+        <script>
+            $(document).ready(function () {
+                // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
+                $('#seConnecter').on('click', function () {
+                    // affichage pour debugage dans la console javascript du navigateur
+                    console.log('Click sur le bouton "Accéder au service"');
+                    connexion();
+                });
+            });
+            
+            function connexion() {
+                $('#traitementConnexion').html('Connexion en cours ...');
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'Connexion',
+                        courriel: $('#courriel').val()
+                    },
+                    dataType: 'json'
+                })
+                .done(function (data) {
+                    alert(data);
+                    if (data.etat){
+                        window.location="profil.html";
+                    } else {
+                        $('#traitementConnexion').html('');
+                        $('#connexionFail').html('Connexion refusée : Courriel non enregistré dans la base de données ');
+                    }
+                });
+            };
+        </script>
+    </body>
+</html>
