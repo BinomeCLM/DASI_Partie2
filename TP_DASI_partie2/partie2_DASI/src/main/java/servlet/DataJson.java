@@ -10,6 +10,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import fr.insalyon.b3427.positif.modele.Client;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -17,12 +21,26 @@ import fr.insalyon.b3427.positif.modele.Client;
  */
 public class DataJson {
     
-    public String recupererDataClient(Client cl){
+    public void sendInscriEtat(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        
+        boolean success = (boolean) request.getAttribute("success");
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        out.println(success);
+        out.close();
+    }
+    
+    public void recupererDataClient(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String data = "";
+        
+        PrintWriter out = response.getWriter();
         
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonClient = new JsonObject();
-                
+        
+        Client cl = (Client) request.getAttribute("client");
+        
         if (cl!=null){
             jsonClient.addProperty("etat", true);
             jsonClient.addProperty("id",cl.getId());
@@ -42,7 +60,10 @@ public class DataJson {
         }
         
         data = gson.toJson(jsonClient);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.println(data);
+        out.close();
         
-        return data;
     }
 }

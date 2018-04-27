@@ -43,7 +43,7 @@ public class ActionServlet extends HttpServlet {
             throws ServletException, IOException {
         //request.setCharacterEncoding("UTF-8");
         String todo = request.getParameter("action");
-        PrintWriter out = response.getWriter();
+        
         DataJson datajson = new DataJson();
         HttpSession session = request.getSession(true); // Ici on crée une session même s'il n'est pas connecté
         // C'est une solution qui marche mais pas forcément la plus efficace (dépend de l'application de notre site)
@@ -58,13 +58,9 @@ public class ActionServlet extends HttpServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                boolean success = (boolean) request.getAttribute("success");
-
-                response.setContentType("text/html");
-                response.setCharacterEncoding("UTF-8");
-                out.println(success);
-                out.close();
+                
+                datajson.sendInscriEtat(request, response);
+                
                 break;
 
             case "Connexion":
@@ -77,23 +73,19 @@ public class ActionServlet extends HttpServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                Client client = (Client) request.getAttribute("client");
                 
-                if (client != null){
-                    session.setAttribute("idClient", client.getId());
+                // A voir si on peut ameliorer car dans DataJson je fais aussi un request.getAttribute pareil
+                Client cl = (Client) request.getAttribute("client");
+                if (cl != null){
+                    session.setAttribute("idClient", cl.getId());
                 }
                 
-                String dataClient = datajson.recupererDataClient(client);
+                datajson.recupererDataClient(request,response);
                 
-                response.setContentType("text/html");
-                response.setCharacterEncoding("UTF-8");
-                out.println(dataClient);
-                out.close();
                 break;
 
             case "RecupererInfoClient":
-                if (session.getAttribute("idClient")!=null){
+                if (session.getAttribute("idClient") != null){
                     ActionRecupInfoClient aric = new ActionRecupInfoClient();
                     // pour rendre plus robuste vérifier qu'on est connecté if session.getid != null
                     // Coté front des paramètre en ajax que quand il y a de la saisie
@@ -104,14 +96,7 @@ public class ActionServlet extends HttpServlet {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     // Faire tout sa dans la classe de formatage (passer en parametre request et response
-                    Client clientInfo = (Client) request.getAttribute("client");
-                    String dataClientInfo =  datajson.recupererDataClient(clientInfo);
-
-                    response.setContentType("application/json"); // Mettre application/json même si c'est du string
-                    // Dans tout le cas c'est du texte, mais c'est pour dire le format du texte retourné
-                    response.setCharacterEncoding("UTF-8");
-                    out.println(dataClientInfo);
-                    out.close();
+                    datajson.recupererDataClient(request, response);
                 }
                 break;
             
