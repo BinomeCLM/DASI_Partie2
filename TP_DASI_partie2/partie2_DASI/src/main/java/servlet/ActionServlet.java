@@ -80,7 +80,7 @@ public class ActionServlet extends HttpServlet {
                     session.setAttribute("idClient", cl.getId());
                 }
                 
-                datajson.recupererDataClient(request,response);
+                datajson.sendEtatConnexion(request,response);
                 
                 break;
 
@@ -96,10 +96,36 @@ public class ActionServlet extends HttpServlet {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     // Faire tout sa dans la classe de formatage (passer en parametre request et response
-                    datajson.recupererDataClient(request, response);
+                    datajson.sendDataClient(request, response);
                 }
                 break;
             
+            case "RecupererListeMediums":
+                if (session.getAttribute("idClient") != null) {
+                    ActionRecupListeMed arlm = new ActionRecupListeMed();
+                    
+                    try {
+                        arlm.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    datajson.sendListeMed(request, response);
+                }
+                break;
+                
+            case "DemanderVoyance":
+                if (session.getAttribute("idClient") != null) {
+                    ActionDemanderVoyance adv = new ActionDemanderVoyance();
+                    
+                    try {
+                        adv.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    datajson.sendConfVoyance(request, response);
+                }
             default:
                 System.out.println("erreurAction");
         }

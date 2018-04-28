@@ -6,10 +6,11 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>S'inscrire</title>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="formulaireInscription"></script>
         <!-- mettre un lien vers le fichier js -->
     </head>
     <body>
@@ -42,44 +43,5 @@ and open the template in the editor.
             </br>
             <input id="validerForm" type="button" value="Confirmer inscription" />
         </form>
-        <script>
-            $(document).ready(function () {
-                // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
-                $('#validerForm').on('click', function () {
-                    // affichage pour debugage dans la console javascript du navigateur
-                    console.log('Click sur le bouton "Confirmer inscription"');
-                    inscription();
-                });
-            });
-            
-            function inscription() {
-                $.ajax({
-                    url:'./ActionServlet',
-                    type:'POST',
-                    data: {
-                        action:'ConfirmationInscription',
-                        civilite: $('civilite option:selected').text(),
-                        nom: $('#nom').val(),
-                        prenom: $('#prenom').val(),
-                        dateNaissance: $('#dateNaissance').val(),
-                        telephone: $('#telephone').val(),
-                        mail: $('#mail').val(),
-                        adresse: $('#adresse').val()
-                    },
-                    dataType:'text'
-                })
-                .done(function(data){
-                    alert(data);
-                    if (data){
-                        window.location="confEnvoieMail.html";
-                    }
-                    else {
-                        alert('done_erreur');
-                        $('#msgErreur').html("Erreur lors de l'inscription");
-                    }
-                });
-            };
-            
-        </script>
     </body>
 </html>

@@ -6,21 +6,18 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Connexion</title>
+        <title>Liste médiums</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="connexion.js"></script>
+        <script src="serviceVoyance.js"></script>
     </head>
     <body>
-        <h1>S'identifier</h1>
-        <p id="connexionFail"></p>
-        <form>
-            <label for="courriel">Courriel </label>
-            <input type="text" id="courriel" name="courriel"/>
-            </br>
-            <input id="seConnecter" type="button" value="Accéder au service" />
-        </form>
-        <div id="traitementConnexion"></div>
+        <h1>Bienvenue <span id="prenom"></span></h1>
+        <a id="consulterProfil" href="profil.html">Consulter votre profil astrologique</a>
+        <a id="serviceVoyance" href="serviceVoyance.html">     Accéder au service de voyance</a>
+        <table id="voyants">
+            
+        </table>
     </body>
 </html>

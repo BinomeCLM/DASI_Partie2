@@ -6,14 +6,16 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Profil astrologique</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="profil.js"></script>
     </head>
     <body>
         <h1>Bienvenue <span id="prenom"></span></h1>
-        <a id="consulterProfil" href="profil.html">Consulter votre profil astrologique</a><a id="serviceVoyance" href="ServiceVoyance.html">Accéder au service de voyance</a>
+        <a id="consulterProfil" href="profil.html">Consulter votre profil astrologique</a>
+        <a id="serviceVoyance" href="serviceVoyance.html">     Accéder au service de voyance</a>
         <table>
             <tr>
                 <td>Signe du zodiaque</td>
@@ -32,58 +34,5 @@ and open the template in the editor.
                 <td id="animal"></td>
             </tr>
         </table>
-        <script>
-            $(document).ready(function () {
-                recupererInfoClient();
-                desactiverLien();
-            });
-            
-            function recupererInfoClient() {
-                $.ajax({
-                    url:'./ActionServlet',
-                    type:'POST',
-                    data: {
-                        action:'RecupererInfoClient'
-                    },
-                    dataType:'json'
-                })
-                .done(function(data){
-                    alert(data);
-                    remplirChamp(data);
-                });
-            };
-            
-            function remplirChamp(data) {
-                $('#prenom').html(data.prenom);
-                $('#signezodiaque').html(data.signeZodiaque);
-                $('#signechinois').html(data.signeChinois);
-                $('#couleur').html(data.couleur);
-                $('#animal').html(data.animalTotem);
-            }
-            
-            /*function desactiverLien() {
-                var chemin = $(location).attr(pathname);
-                if (contains(chemin, 'profil')) {
-                    $('#consulterProfil').css('text-decoration: none; color: black');
-                    $('#consulterProfil').on('click', function() {
-                        return false;
-                    });
-                    $('#serviceVoyance').css('text-decoration: underline; color: blue');
-                    $('#serviceVoyance').on('click', function() {
-                        return true;
-                    });
-                }
-                else {
-                    $('#serviceVoyance').css('text-decoration: none; color: black');
-                    $('#serviceVoyance').on('click', function() {
-                        return false;
-                    });
-                    $('#consulterProfil').css('text-decoration: underline; color: blue');
-                    $('#consulterProfil').on('click', function() {
-                        return true;
-                    });
-                }
-            }*/
-        </script>
     </body>
 </html>
