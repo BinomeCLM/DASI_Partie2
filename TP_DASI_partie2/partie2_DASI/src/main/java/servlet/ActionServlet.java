@@ -125,7 +125,24 @@ public class ActionServlet extends HttpServlet {
                     }
                     
                     datajson.sendConfVoyance(request, response);
+                    
                 }
+                break;
+            
+            case "RecupererInfoMedium":
+                // Je pars du principe que l'employe ne se connecte pas lui
+                ActionRecupInfoMedium arim = new ActionRecupInfoMedium();
+                
+                try {
+                        arim.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    datajson.sendDataMedium(request, response);
+                    
+                    break;
+                    
             default:
                 System.out.println("erreurAction");
         }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Demande de voyance</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="demandeDeVoyance.js"></script>
+    </head>
+    <body>
+        <div id="demandeVoyance">Demande de voyance | 
+            <a id="tableauDeBord" href="tableauDeBord.html">Tableau de bord</a>
+        </div>
+        <h1>Demande de Voyance</h1>
+        <div id="detailDemande">
+            <div id="infoClient"></div>
+            <div id="infoMedium"></div>
+        </div>
+        <a href="historique.html">Consulter l'historique</a>
+        <button>Démarrer voyance</button>
+        
+        <h2>Générer prédiction</h2>
+        <form>
+            <label for="amour">Amour</label>
+            <input type="number" name="amour" id="amour"/>
+            </br>
+            <label for="sante">Santé</label>
+            <input type="number" name="sante" id="sante"/>
+            </br>
+            <label for="travail">Travail</label>
+            <input type="number" name="travail" id="travail"/>
+            </br>
+            <input id="validerForm" type="button" value="Générer prédiction" />
+        </form>
+    </body>
+</html>

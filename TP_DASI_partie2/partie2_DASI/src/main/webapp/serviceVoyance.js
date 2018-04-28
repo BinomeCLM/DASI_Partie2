@@ -52,6 +52,11 @@ function remplirChamp(data) {
 function ajouterListeMediums(compteur, data) {
     // Le compteur permet de donner un id unique à chaque bouton 
     // pour ensuite savoir lequel a été cliqué
+    // TODO : Modifier et ne pas faire la mise en forme
+    // grace au tableau car c'est interdit en html 5 mtn !!!!
+    // C'était just epour tester et voir si ça marcher pour l'instant
+    // Idée : mettre de balises div avec attributs ou classe si besoin
+    // et dans le fichier css faire l'alignement grâce à des display ...
     $('#voyants').append('<tr id="prenomETmetier">'
             +   '<td id="nom">' + data.nom + '</td>'
             +   '<td id="metier">' + data.metier + '</td>'

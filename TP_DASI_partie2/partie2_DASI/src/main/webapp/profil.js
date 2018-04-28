@@ -33,6 +33,9 @@ function remplirChamp(data) {
     $('#animal').html(data.animalTotem);
 }
 
+// A voir si on la laisse
+// La fonction ne marchera qu'une fois le css fait avec les attributs ajoutés
+// et spécifiés dedans
 /*function desactiverLien() {
     var chemin = $(location).attr(pathname);
     if (contains(chemin, 'profil')) {

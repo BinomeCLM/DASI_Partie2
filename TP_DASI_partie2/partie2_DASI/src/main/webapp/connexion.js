@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+// TODO : Adapter pour savoir si c'est un employé ou un client qui se connecte
+// a moins que l'employe ne se connecte pas ?
+
 $(document).ready(function () {
     // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
     $('#seConnecter').on('click', function () {
