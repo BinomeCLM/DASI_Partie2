@@ -28,11 +28,18 @@ public class ActionRecupListePrest extends Action {
         
         HttpSession session = request.getSession();
         Long idCl = (Long) session.getAttribute("idClient");
+        System.out.println("XXXXXXXXidCl="+idCl);
         EmployeService empServ = new EmployeService();
         
         Client cl = empServ.getClient(idCl);
+        System.out.println("XXXXXXXXcl="+cl);
         List<Prestation> listePrestation = empServ.getHistoric(cl);
-        System.out.println(listePrestation.get(0));
+        if(listePrestation==null){
+            System.out.println("null lan");          
+        }else{
+            System.out.println("XXXXXXXX"+listePrestation.get(0).getId());          
+            System.out.println("null degil");          
+        }
         request.setAttribute("listePrestation", listePrestation);
     }
     

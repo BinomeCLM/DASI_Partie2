@@ -19,6 +19,7 @@ import fr.insalyon.b3427.positif.modele.Voyant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,20 @@ public class DataJson {
         out.println(success);
         out.close();
     }
+    public void sendInscriStopPrest(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        
+        PrintWriter out = response.getWriter();
+        
+        boolean success = (boolean) request.getAttribute("success");
+        
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        out.print(success); 
+        out.close();
+    }
+    
+    
+    
     
     public void sendEtatConnexion(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
@@ -53,9 +68,15 @@ public class DataJson {
         
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        out.println(etatConnexion);
+        out.print(etatConnexion);
+        
         out.close();
     }
+
+
+    
+    
+    
     
     public void sendDataClient(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
@@ -65,13 +86,16 @@ public class DataJson {
         JsonObject jsonClient = new JsonObject();
         
         Client cl = (Client) request.getAttribute("client");
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (cl!=null){
             jsonClient.addProperty("id",cl.getId());
             jsonClient.addProperty("civilite",cl.getCivilite());
             jsonClient.addProperty("nom",cl.getNom());
             jsonClient.addProperty("prenom", cl.getPrenom());
             jsonClient.addProperty("mail", cl.getCourriel());
+            Date d = cl.getDateNaissance();
+            String dateDeNaissance=sdf.format(d);
+            jsonClient.addProperty("dateDeNaissance", dateDeNaissance); 
             jsonClient.addProperty("adresse",cl.getAdressePostale());
             jsonClient.addProperty("signeZodiaque", cl.getSigneZodiaque());
             jsonClient.addProperty("signeChinois", cl.getSigneChinois());
@@ -156,6 +180,14 @@ public class DataJson {
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
     public void sendDataMedium(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
         PrintWriter out = response.getWriter();
@@ -206,7 +238,6 @@ public class DataJson {
         JsonArray jsonListe = new JsonArray();
         
         List<Medium> listeMedium = (List<Medium>) request.getAttribute("listeMedium");
-        
         for (Medium m : listeMedium) {
             JsonObject jsonMedium = new JsonObject();
             
@@ -239,6 +270,53 @@ public class DataJson {
         out.close();
     }
 
+    
+    
+    public void sendListePrest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+        PrintWriter out = response.getWriter();
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        
+        JsonObject container = new JsonObject();
+        JsonArray jsonListe = new JsonArray();
+        
+        List<Prestation> listePrestation = (List<Prestation>) request.getAttribute("listePrestation");
+
+        for (Prestation p : listePrestation) {
+            JsonObject jsonPrestation = new JsonObject();
+            
+            jsonPrestation.addProperty("id",p.getId());
+            jsonPrestation.addProperty("idClient",p.getClient().getId());
+            jsonPrestation.addProperty("idEmploye",p.getEmploye().getId());
+            jsonPrestation.addProperty("idMedium",p.getMedium().getId());
+            jsonPrestation.addProperty("mediumStr",p.getMedium().getNom()+" ("+p.getMedium().getTalent()+")");
+            jsonPrestation.addProperty("employeStr",p.getEmploye().getNomEmploye()); 
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+
+            jsonPrestation.addProperty("heureDebut", sdf.format(p.getHeureDebut()));
+            jsonPrestation.addProperty("heureFin", sdf.format(p.getHeureFin()));
+
+            Long diff = p.getHeureFin().getTime()-p.getHeureDebut().getTime();
+            Long diffSeconds = diff / 1000 % 60;         
+            Long diffMinutes = diff / (60 * 1000) % 60;         
+            Long diffHours = diff / (60 * 60 * 1000);
+            String duree= diffHours+"'"+diffMinutes+"''"+diffSeconds+"'''";
+            
+            jsonPrestation.addProperty("dureeStr",duree); 
+            
+            jsonListe.add(jsonPrestation);
+        }
+    
+        container.add("prestations", jsonListe);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.println(gson.toJson(container));
+        out.close();
+    }
+
     void sendConfVoyance(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
         PrintWriter out = response.getWriter();
@@ -247,7 +325,8 @@ public class DataJson {
         
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        out.println(etatDemande);
+        out.print(etatDemande); 
         out.close();
+        
     }
 }

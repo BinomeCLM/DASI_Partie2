@@ -1,6 +1,7 @@
 package fr.insalyon.b3427.positif.ihm;
 
 import fr.insalyon.b3427.positif.dao.JpaUtil;
+import fr.insalyon.b3427.positif.dao.PrestationDAO;
 import fr.insalyon.b3427.positif.modele.Astrologue;
 import fr.insalyon.b3427.positif.modele.Client;
 import fr.insalyon.b3427.positif.modele.Employe;
@@ -93,7 +94,6 @@ public class Saisie {
         EmployeService es = new EmployeService();
         Employe emp = es.getEmploye(Long.valueOf(entree));
         System.out.println(emp.getId()+" "+emp.getNomEmploye());
-        
         Prestation pres = es.getWaitingPrestation(emp);
         if(pres==null){
             

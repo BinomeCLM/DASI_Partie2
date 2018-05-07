@@ -26,7 +26,6 @@ function recupererInfoClient() {
 };
 
 function remplirChamp(data) {
-    console.log("eemplir");
     $('#prenom').html(data.prenom);
     $('#signezodiaque').html(data.signeZodiaque);
     $('#signechinois').html(data.signeChinois);

@@ -15,7 +15,6 @@ $(document).ready(function () {
 });
 
 function inscription() {
-    console.log("debut");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -32,18 +31,13 @@ function inscription() {
         dataType:'text'
     })
     .done(function(data){
-        console.log('done');
         alert(data);
         if (data){
             window.location="confEnvoieMail.html";
         }
         else {
-                    console.log('done3');
-
             alert('done_erreur');
             $('#msgErreur').html("Erreur lors de l'inscription");
         }
     });
-            console.log('done2');
-
 };

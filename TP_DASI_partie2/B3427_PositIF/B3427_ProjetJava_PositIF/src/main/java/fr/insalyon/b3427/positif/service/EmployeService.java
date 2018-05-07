@@ -25,16 +25,6 @@ public class EmployeService {
         JpaUtil.fermerEntityManager();
         return emp;
     }
-    
-    //Ajouter pour pouvoir faire l'IHM
-    public Medium getMedium(Long mediumId){
-        MediumDAO mediumDAO = new MediumDAO();
-        JpaUtil.creerEntityManager();
-        Medium med = mediumDAO.findById(mediumId);
-        JpaUtil.fermerEntityManager();
-        return med;
-    }
-    
     public Client getClient(Long userId){
         ClientDAO clientDAO = new ClientDAO();
         JpaUtil.creerEntityManager();

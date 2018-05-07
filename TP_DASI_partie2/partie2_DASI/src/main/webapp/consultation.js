@@ -4,22 +4,24 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
-    recupererInfoClientPourEmp();
+    recupererInfoClientPourConsultation();
     
     // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
-    $('#terminer').on('click', function () {
+    $('#terminer').on('click', function () { 
         // affichage pour debugage dans la console javascript du navigateur
-        console.log('Click sur le bouton "Accéder au service"');
+        //        
+
+        console.log('Click sur le bouton "Terminer consultation"');
         terminerConsultation();
     });
 });
 
-function recupererInfoClientPourEmp() {
+function recupererInfoClientPourConsultation() {
     $.ajax({
-        url:'./ActionServlet',
+        url:'./ActionServlet', 
         type:'POST',
         data: {
-            action:'RecupererInfoClientPourEmp',
+            action:'RecupererInfoClientPourConsultation', 
             //employe: '4'
 
            
@@ -31,6 +33,29 @@ function recupererInfoClientPourEmp() {
         remplirChampClient(data);
     });
 };
+
+function terminerConsultation() {
+    $.ajax({
+       url : './ActionServlet',
+       type: 'POST',
+       data : {
+           action : 'StopPrestation',  
+       },
+        dataType: 'text'
+    })
+    .done(function(data){
+        var t="true";
+        if (data==t){
+            alert("Le onglet va se fermer");
+            window.close();        
+        }else{
+            alert(data);
+            alert("error: StopPrest");
+        }
+        window.location = "consultation.html";
+        
+    });
+}
 
 function remplirChampClient(data) {
     $('#infoClient').html(data.prenom + ' ' + data.nom + ' #' + data.id);

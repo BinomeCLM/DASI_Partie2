@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+ 
 
 $(document).ready(function () {
-    alert("A1");
-    console.log("B1");
-    recupererListePrestations();
+//    alert("A1");
+//    console.log("B1");   
+    getInfoClient();
     //desactiverLien();
-});
-
-function recupererListePrestations() {
-    alert("A2");
+}); 
+function getInfoClient(){ 
+//    alert("A2");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -25,7 +24,10 @@ function recupererListePrestations() {
     .done(function(data){
         alert('remplirChampClient');
         remplirChampClient(data);
+        recupererListePrestations();
     });
+}
+function recupererListePrestations() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -35,7 +37,7 @@ function recupererListePrestations() {
         dataType:'json'
     })
     .done(function(data){
-        alert('ajouterListePrestations');
+        alert('remplirTableauHistorique');
         remplirTableauHistorique(data.prestations);
     });
     
@@ -49,10 +51,10 @@ function remplirTableauHistorique(prestations){
 
 function ajouterPrestation(compteur,prestation){
      $('#tableauHistorique').append('<tr>'+
-            '<td>'+ prestation.mediumStr +'</td>'+
+            '<td>'+ prestation.heureDebut +'</td>'+
             '<td>'+ prestation.mediumStr +'</td>'+
             '<td>'+ prestation.employeStr +'</td>'+
-            '<td>'+ prestation.employeStr +'</td>'+
+            '<td>'+ prestation.dureeStr +'</td>'+
             '</tr>');
 }
 

@@ -8,7 +8,7 @@
 $(document).ready(function () {
     recupererListeMediums();
     //desactiverLien();
-});
+});  
 
 function recupererListeMediums() {
     $.ajax({
@@ -111,6 +111,10 @@ function demanderVoyance(identifiant) {
     })
     .done(function (data) {
         alert(data);
-        window.location="attenteMedium.html";
+        if(data="true"){
+            window.location="attenteMedium.html";            
+        }else{
+            alert("Voyance n'a pas pu être demandé..");
+        } 
     });
 }

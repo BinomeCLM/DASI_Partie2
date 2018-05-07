@@ -27,20 +27,22 @@ public class ActionRecupInfoClientPourEmp extends Action {
         
         HttpSession session = request.getSession();
         Long id = (Long) session.getAttribute("idEmploye");
-        System.out.println(id);
+        System.out.println("xxxxxxxxxxxxxx"+id);
         EmployeService empServ = new EmployeService();
         //Long idEmp = Long.parseLong(request.getParameter("idEmp")) ;
         //Long idEmp = new Long(4);
         Employe emp = empServ.getEmploye(id);
+        System.out.println(emp.getNomEmploye());
         Prestation p = empServ.getWaitingPrestation(emp);
-        
         if(emp != null)
         {
+                System.out.println("xxxxxxxxxxxxxx1");
             if(p!=null)
             {
-            Client cl = empServ.getClient((p.getClient()).getId());
-            request.setAttribute("client",cl);
-            System.out.println(emp);
+                System.out.println("xxxxxxxxxxxxxx2");
+                Client cl = empServ.getClient((p.getClient()).getId());
+                request.setAttribute("client",cl);
+                System.out.println(emp);
             }  
            
         }
