@@ -7,6 +7,9 @@ package servlet;
 
 import fr.insalyon.b3427.positif.dao.JpaUtil;
 import fr.insalyon.b3427.positif.modele.Client;
+import fr.insalyon.b3427.positif.modele.Employe;
+import fr.insalyon.b3427.positif.modele.Medium;
+import fr.insalyon.b3427.positif.modele.Prestation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -43,6 +46,7 @@ public class ActionServlet extends HttpServlet {
             throws ServletException, IOException {
         //request.setCharacterEncoding("UTF-8");
         String todo = request.getParameter("action");
+        if(todo==null)todo="default";
         
         DataJson datajson = new DataJson();
         HttpSession session = request.getSession(true); // Ici on crée une session même s'il n'est pas connecté
@@ -66,7 +70,7 @@ public class ActionServlet extends HttpServlet {
             case "Connexion":
                 // Au moment de la connexion qu'on crée la session parce-que au moment de l'inscription on doit 
                 // quand même se connecter ensuite
-                
+                System.out.println("Case Connexion");
                 ActionConnexion ac = new ActionConnexion();
                 try {
                     ac.executeAction(request);
@@ -99,7 +103,94 @@ public class ActionServlet extends HttpServlet {
                     datajson.sendDataClient(request, response);
                 }
                 break;
-            
+             
+            case "RecupererInfoClientPourEmp" :
+                ActionRecupInfoClientPourEmp aricpe = new ActionRecupInfoClientPourEmp();
+                try {
+                    aricpe.executeAction(request);
+                } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                Client c = (Client)request.getAttribute("client");
+              
+                if(c!=null)
+                {
+                    session.setAttribute("idClient",c.getId());
+                    
+                }
+                datajson.sendDataClient(request, response);
+                break;
+            case "RecupererInfoClientPourConsultation" :
+                ActionRecupInfoClientPourConsultation aricpc = new ActionRecupInfoClientPourConsultation();
+                try {
+                    aricpc.executeAction(request);
+                } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex); 
+                }
+                
+                
+                Client client = (Client)request.getAttribute("client");
+              
+                datajson.sendDataClient(request, response);
+                break;
+            case "RecupererInfoEmp" :
+                ActionRecupInfosEmp arie = new  ActionRecupInfosEmp();
+                try {
+                    arie.executeAction(request);
+             
+                } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                Employe emp = (Employe)request.getAttribute("employe");
+                
+                if(emp != null)
+                {
+                    session.setAttribute("idEmploye", emp.getId());
+                    
+                }
+                datajson.sendDataEmploye(request, response);
+                break;
+            case "RecupererInfoPrestation" :
+                
+                ActionRecupInfoPrestation arip = new ActionRecupInfoPrestation();
+                try {
+                    arip.executeAction(request);
+             
+                } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Prestation pr = (Prestation)request.getAttribute("prestation");
+                
+                if(pr!=null)
+                {
+                    session.setAttribute("idPrestation",pr.getId());
+                    
+                }
+                datajson.sendDataPrestation(request, response);
+                break;
+                
+            case "RecupererInfoMedium" :
+                ActionRecupInfoMedium arim = new ActionRecupInfoMedium();
+                try {
+                    arim.executeAction(request);
+             
+                } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                Medium m = (Medium)request.getAttribute("medium");
+                
+                if(m!=null)
+                {
+                    session.setAttribute("idMedium",m.getId());
+                    
+                }
+                datajson.sendDataMedium(request, response);
+                break;
+                
             case "RecupererListeMediums":
                 if (session.getAttribute("idClient") != null) {
                     ActionRecupListeMed arlm = new ActionRecupListeMed();
@@ -113,6 +204,17 @@ public class ActionServlet extends HttpServlet {
                     datajson.sendListeMed(request, response);
                 }
                 break;
+                
+            case "RecupererListePrestations":
+                ActionRecupListePrest arlp = new ActionRecupListePrest();
+
+                try {
+                    arlp.executeAction(request);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                datajson.sendListePrest(request, response);
                 
             case "DemanderVoyance":
                 if (session.getAttribute("idClient") != null) {
@@ -129,20 +231,37 @@ public class ActionServlet extends HttpServlet {
                 }
                 break;
             
-            case "RecupererInfoMedium":
-                // Je pars du principe que l'employe ne se connecte pas lui
-                ActionRecupInfoMedium arim = new ActionRecupInfoMedium();
-                
+            case "StartPrestation"  :
+                ActionStartPrestation asp = new ActionStartPrestation();
                 try {
-                        arim.executeAction(request);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    asp.executeAction(request);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                Prestation p = (Prestation)request.getAttribute("prestation");
+                
+                if(p!=null)
+                {
+                    session.setAttribute("idPrestation",p.getId());
                     
-                    datajson.sendDataMedium(request, response);
-                    
-                    break;
-                    
+                }
+                datajson.sendDataPrestation(request, response);
+                break;
+
+            case "StopPrestation"  :
+                System.out.println("ABCABCACBABCSAASFJAKFAJLKFSAFSAFS"); 
+                ActionStopPrestation astopp = new ActionStopPrestation(); 
+                try {
+                    astopp.executeAction(request);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("ABCABCACBABCSAASFJAKFAJLKFSAFSAFS2"); 
+                
+                break;
+                
+                
             default:
                 System.out.println("erreurAction");
         }
@@ -156,8 +275,8 @@ public class ActionServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        JpaUtil.destroy();
         super.destroy(); //To change body of generated methods, choose Tools | Templates.
+        JpaUtil.destroy();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

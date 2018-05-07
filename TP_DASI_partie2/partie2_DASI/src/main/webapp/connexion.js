@@ -29,9 +29,15 @@ function connexion() {
     })
     .done(function (data) {
         alert(data);
-        if (data){
+        console.log(data);
+        var t="true";
+        if (data==t){
+            console.log(data+"asfafs");
+            alert(data+"asfafs");
             window.location="profil.html";
         } else {
+            console.log(data+"asfafs2");
+            alert(data+"asfafs2");
             $('#traitementConnexion').html('');
             $('#connexionFail').html('Connexion refusée : Courriel non enregistré dans la base de données ');
         }

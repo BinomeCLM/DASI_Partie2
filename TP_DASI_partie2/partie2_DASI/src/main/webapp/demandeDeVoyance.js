@@ -6,17 +6,49 @@
 
 
 $(document).ready(function () {
-    recupererInfoClient();
-    recupererInfoMedium();
+    var url = new URL(window.location.href);
+    var idEmploye=url.searchParams.get("idEmploye");
+    recupererInfoEmploye(idEmploye);
+    
+    
     //desactiverLien();
+    $('#demarrerVoyance').on('click', function () {
+        demarrerVoyance();
+        
+    });
 });
 
-function recupererInfoClient() {
+
+function demarrerVoyance() {
+   $.ajax({
+       url : './ActionServlet',
+       type: 'POST',
+       data : {
+           action : 'StartPrestation'
+           
+       },
+       dataType : 'json'
+    })
+    .done(function(data){
+        alert(data);
+        openInNewTab("consultation.html");
+//        window.location = "consultation.html";
+        
+    });
+}
+function openInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
+function recupererInfoClientPourEmp() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'RecupererInfoClient'
+            action:'RecupererInfoClientPourEmp',
+            //employe: '4'
+
+           
         },
         dataType:'json'
     })
@@ -31,7 +63,8 @@ function recupererInfoMedium() {
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'RecupererInfoMedium'
+            action:'RecupererInfoMedium',
+            //employe: '4'
         },
         dataType:'json'
     })
@@ -41,15 +74,42 @@ function recupererInfoMedium() {
     });
 };
 
+
+function recupererInfoEmploye(idEmploye) {
+    
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'RecupererInfoEmp',
+            employe: idEmploye, 
+        },
+        dataType:'json'
+    })
+    .done(function(data){
+        alert(data);
+        remplirChampEmploye(data);
+        recupererInfoClientPourEmp();
+        recupererInfoMedium();
+        
+    });
+};
+
 function remplirChampClient(data) {
+    var today = new Date();
+    var yearr = Number(data.dateDeNaissance.substr(6, 10)); 
+    var age = today.getFullYear() - yearr;
+    alert(yearr);
+//    alert(today.getFullYear());
+ //   alert(age);
     $('#infoClient').html(data.civilite + '. ' + data.prenom + ' ' + data.nom + ' | '
-            + data.age + ' | #' + data.id);
+            + age + 'ans | #' + data.id);
 }
 
 function remplirChampMedium(data) {
     $('#infoMedium').html('Médium demandé: ' + data.nom + ' | '
             + data.talent + ' | ');
-    if (data.metier === 'Tarologue'){
+    /*if (data.metier === 'Tarologue'){
         $('#infoMedium').append(data.cartes);
     } 
     else if (data.metier === 'Astrologue') {
@@ -57,5 +117,9 @@ function remplirChampMedium(data) {
     }
     else {
         $('#infoMedium').append(data.support);
-    } 
+    } */
+}
+
+function remplirChampEmploye(data) {
+    $('#infoEmploye').html(data.nom);
 }

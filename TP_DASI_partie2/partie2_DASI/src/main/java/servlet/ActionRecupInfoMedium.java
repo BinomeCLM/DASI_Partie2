@@ -6,6 +6,8 @@
 package servlet;
 
 import fr.insalyon.b3427.positif.modele.Client;
+import fr.insalyon.b3427.positif.modele.Employe;
+import fr.insalyon.b3427.positif.modele.Medium;
 import fr.insalyon.b3427.positif.modele.Prestation;
 import fr.insalyon.b3427.positif.service.ClientService;
 import fr.insalyon.b3427.positif.service.EmployeService;
@@ -24,10 +26,25 @@ class ActionRecupInfoMedium extends Action {
     @Override
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
+        HttpSession session = request.getSession();
+        Long id = (Long) session.getAttribute("idEmploye");
+        
         EmployeService empServ = new EmployeService();
-        Prestation prestation = empServ.getWaitingPrestation(emp);
-        System.out.println(prestation);
-        request.setAttribute("prestation", prestation);
+        //Long idEmp = Long.parseLong(request.getParameter("idEmp")) ;
+        //Long idEmp = new Long(4);
+        Employe emp = empServ.getEmploye(id);
+        Prestation p = empServ.getWaitingPrestation(emp);
+        
+        if(emp != null)
+        {
+            if(p!=null)
+            {
+                Medium m = p.getMedium();  
+                System.out.println("medium"+ m);
+                request.setAttribute("medium",m);
+            }  
+           
+        }
     }
     
 }
