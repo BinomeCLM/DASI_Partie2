@@ -38,7 +38,7 @@ public class ActionInscription extends Action {
         String telephone = request.getParameter("telephone");
         String mail = request.getParameter("mail");
         String dateNaissanceStr = request.getParameter("dateNaissance");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dateNaissance = sdf.parse(dateNaissanceStr);
         
         Client cl = new Client(civilite,prenom,nom,dateNaissance,adresse,telephone,mail);

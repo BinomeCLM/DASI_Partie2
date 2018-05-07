@@ -4,22 +4,22 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
-    recupererInfoClientPourConsultation();
+    recupererInfoClientPourEmp();
     
     // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
     $('#terminer').on('click', function () {
         // affichage pour debugage dans la console javascript du navigateur
-        console.log('Click sur le bouton "Terminer consultation"');
+        console.log('Click sur le bouton "Accéder au service"');
         terminerConsultation();
     });
 });
 
-function recupererInfoClientPourConsultation() {
+function recupererInfoClientPourEmp() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'RecupererInfoClientPourConsultation', 
+            action:'RecupererInfoClientPourEmp',
             //employe: '4'
 
            
@@ -31,24 +31,6 @@ function recupererInfoClientPourConsultation() {
         remplirChampClient(data);
     });
 };
-
-function terminerConsultation() {
-       $.ajax({
-       url : './ActionServlet',
-       type: 'POST',
-       data : {
-           action : 'StopPrestation'
-           
-       },
-        dataType: 'text'
-    })
-    .done(function(data){
-  //      alert(data);
-//        window.close();
-//        window.location = "consultation.html";
-        
-    });
-}
 
 function remplirChampClient(data) {
     $('#infoClient').html(data.prenom + ' ' + data.nom + ' #' + data.id);

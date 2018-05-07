@@ -39,9 +39,9 @@ class ActionRecupInfoMedium extends Action {
         {
             if(p!=null)
             {
-                Medium m = p.getMedium();  
-                System.out.println("medium"+ m);
-                request.setAttribute("medium",m);
+            Medium m = empServ.getMedium((p.getMedium().getId()));
+            System.out.println("medium"+ m);
+            request.setAttribute("medium",m);
             }  
            
         }

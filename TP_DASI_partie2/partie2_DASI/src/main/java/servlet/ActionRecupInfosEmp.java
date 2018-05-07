@@ -28,7 +28,8 @@ public class ActionRecupInfosEmp extends Action {
         
         EmployeService empServ = new EmployeService();
         System.out.println(request.getParameter("employe"));
-        Long idEmp = Long.parseLong(request.getParameter("employe")) ; 
+        Long idEmp = 
+        idEmp = Long.parseLong(request.getParameter("employe")) ;
         Employe emp = empServ.getEmploye(idEmp);
         Prestation p = empServ.getWaitingPrestation(emp);
         

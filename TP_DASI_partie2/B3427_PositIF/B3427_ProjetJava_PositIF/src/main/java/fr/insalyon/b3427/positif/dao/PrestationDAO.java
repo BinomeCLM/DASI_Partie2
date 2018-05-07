@@ -11,10 +11,8 @@ import javax.persistence.Query;
  */
 public class PrestationDAO {
     public Prestation findById(Long id){
-        EntityManager em = JpaUtil.obtenirEntityManager(); 
-        Long idd=Long.parseLong("51"); 
-        System.out.println("KKKKKK"+idd);
-        return em.find(Prestation.class, idd);
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        return em.find(Prestation.class, id);
     }
     public void persist(Prestation pres){
         EntityManager em = JpaUtil.obtenirEntityManager();
@@ -39,6 +37,7 @@ public class PrestationDAO {
         EntityManager em = JpaUtil.obtenirEntityManager();
         Query q = em.createQuery("select p from Prestation p where p.employe=:emp and p.heureDebut=null");
         q.setParameter("emp", emp);
+        
         List results = q.getResultList();
         if(!results.isEmpty()){
             return (Prestation) results.get(0);

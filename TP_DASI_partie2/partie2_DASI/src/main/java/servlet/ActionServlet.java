@@ -122,19 +122,6 @@ public class ActionServlet extends HttpServlet {
                 }
                 datajson.sendDataClient(request, response);
                 break;
-            case "RecupererInfoClientPourConsultation" :
-                ActionRecupInfoClientPourConsultation aricpc = new ActionRecupInfoClientPourConsultation();
-                try {
-                    aricpc.executeAction(request);
-                } catch (ParseException ex) {
-                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex); 
-                }
-                
-                
-                Client client = (Client)request.getAttribute("client");
-              
-                datajson.sendDataClient(request, response);
-                break;
             case "RecupererInfoEmp" :
                 ActionRecupInfosEmp arie = new  ActionRecupInfosEmp();
                 try {
@@ -205,17 +192,6 @@ public class ActionServlet extends HttpServlet {
                 }
                 break;
                 
-            case "RecupererListePrestations":
-                ActionRecupListePrest arlp = new ActionRecupListePrest();
-
-                try {
-                    arlp.executeAction(request);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                datajson.sendListePrest(request, response);
-                
             case "DemanderVoyance":
                 if (session.getAttribute("idClient") != null) {
                     ActionDemanderVoyance adv = new ActionDemanderVoyance();
@@ -247,18 +223,6 @@ public class ActionServlet extends HttpServlet {
                     
                 }
                 datajson.sendDataPrestation(request, response);
-                break;
-
-            case "StopPrestation"  :
-                System.out.println("ABCABCACBABCSAASFJAKFAJLKFSAFSAFS"); 
-                ActionStopPrestation astopp = new ActionStopPrestation(); 
-                try {
-                    astopp.executeAction(request);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                System.out.println("ABCABCACBABCSAASFJAKFAJLKFSAFSAFS2"); 
-                
                 break;
                 
                 

@@ -6,9 +6,7 @@
 
 
 $(document).ready(function () {
-    var url = new URL(window.location.href);
-    var idEmploye=url.searchParams.get("idEmploye");
-    recupererInfoEmploye(idEmploye);
+    recupererInfoEmploye();
     
     
     //desactiverLien();
@@ -31,14 +29,9 @@ function demarrerVoyance() {
     })
     .done(function(data){
         alert(data);
-        openInNewTab("consultation.html");
-//        window.location = "consultation.html";
+        window.location = "consultation.html";
         
     });
-}
-function openInNewTab(url) {
-  var win = window.open(url, '_blank');
-  win.focus();
 }
 function recupererInfoClientPourEmp() {
     $.ajax({
@@ -75,14 +68,13 @@ function recupererInfoMedium() {
 };
 
 
-function recupererInfoEmploye(idEmploye) {
-    
+function recupererInfoEmploye() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
         data: {
             action:'RecupererInfoEmp',
-            employe: idEmploye, 
+            employe: '4',
         },
         dataType:'json'
     })
@@ -96,14 +88,8 @@ function recupererInfoEmploye(idEmploye) {
 };
 
 function remplirChampClient(data) {
-    var today = new Date();
-    var yearr = Number(data.dateDeNaissance.substr(6, 10)); 
-    var age = today.getFullYear() - yearr;
-    alert(yearr);
-//    alert(today.getFullYear());
- //   alert(age);
     $('#infoClient').html(data.civilite + '. ' + data.prenom + ' ' + data.nom + ' | '
-            + age + 'ans | #' + data.id);
+            + data.age + ' | #' + data.id);
 }
 
 function remplirChampMedium(data) {

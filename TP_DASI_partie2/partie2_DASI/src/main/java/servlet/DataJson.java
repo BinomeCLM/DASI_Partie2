@@ -19,7 +19,6 @@ import fr.insalyon.b3427.positif.modele.Voyant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,15 +53,9 @@ public class DataJson {
         
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        out.print(etatConnexion);
-        
+        out.println(etatConnexion);
         out.close();
     }
-
-
-    
-    
-    
     
     public void sendDataClient(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
@@ -72,16 +65,13 @@ public class DataJson {
         JsonObject jsonClient = new JsonObject();
         
         Client cl = (Client) request.getAttribute("client");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         if (cl!=null){
             jsonClient.addProperty("id",cl.getId());
             jsonClient.addProperty("civilite",cl.getCivilite());
             jsonClient.addProperty("nom",cl.getNom());
             jsonClient.addProperty("prenom", cl.getPrenom());
             jsonClient.addProperty("mail", cl.getCourriel());
-            Date d = cl.getDateNaissance();
-            String dateDeNaissance=sdf.format(d);
-            jsonClient.addProperty("dateDeNaissance", dateDeNaissance); 
             jsonClient.addProperty("adresse",cl.getAdressePostale());
             jsonClient.addProperty("signeZodiaque", cl.getSigneZodiaque());
             jsonClient.addProperty("signeChinois", cl.getSigneChinois());
@@ -166,14 +156,6 @@ public class DataJson {
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
     public void sendDataMedium(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
         PrintWriter out = response.getWriter();
@@ -246,44 +228,6 @@ public class DataJson {
                 jsonMedium.addProperty("support", ((Voyant)m).getSupport());
             }
             
-            jsonListe.add(jsonMedium);
-        }
-    
-        container.add("mediums", jsonListe);
-        
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        out.println(gson.toJson(container));
-        out.close();
-    }
-
-    
-    
-    public void sendListePrest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-        PrintWriter out = response.getWriter();
-        
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        
-        JsonObject container = new JsonObject();
-        JsonArray jsonListe = new JsonArray();
-        
-        List<Prestation> listePrestation = (List<Prestation>) request.getAttribute("listePrestation");
-        
-        for (Prestation p : listePrestation) {
-            JsonObject jsonMedium = new JsonObject();
-            
-            jsonMedium.addProperty("id",p.getId());
-            jsonMedium.addProperty("idClient",p.getClient().getId());
-            jsonMedium.addProperty("idEmploye",p.getEmploye().getId());
-            jsonMedium.addProperty("idMedium",p.getMedium().getId());
-            jsonMedium.addProperty("mediumStr",p.getMedium().getNom()+" ("+p.getMedium().getTalent()+")");
-            jsonMedium.addProperty("employeStr",p.getEmploye().getNomEmploye()); 
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-
-//            jsonMedium.addProperty("heureDebut", sdf.format(p.getHeureDebut()));
-//            jsonMedium.addProperty("heureFin", sdf.format(p.getHeureFin()));            
             jsonListe.add(jsonMedium);
         }
     

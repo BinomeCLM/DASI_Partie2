@@ -25,7 +25,7 @@ class ActionDemanderVoyance extends Action {
         HttpSession session = request.getSession();
         Long id = (Long) session.getAttribute("idClient");
         
-        Long idMedium = Long.parseLong(request.getParameter("id")); 
+        Long idMedium = Long.parseLong(request.getParameter("id"));
         
         ClientService clServ = new ClientService();
         Client cl = clServ.getClient(id);
