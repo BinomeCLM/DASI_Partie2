@@ -25,16 +25,18 @@ public class ActionRecupInfoClientPourConsultation extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        Long idClient = (Long) session.getAttribute("idClient"); 
-//        System.out.println("xxxxxxxxxxxxxx"+id);
-        EmployeService empServ = new EmployeService();
+        // Attention je pense qu'il faut recuperer l'employe
+        // puis le client dont l'employe est en charge, tu valides ?
+        // J'ai mis en commentaire ton code
+        // J'ai rajouté dans startPrestation l'action, le client dans la session
         
-       
-        System.out.println("xxxxxxxxxxxxxx2");
-        Client cl = empServ.getClient(idClient); 
+        //Long idClient = (Long) session.getAttribute("idClient"); 
+        Client cl = (Client) session.getAttribute("clientPresta");
+        
+        EmployeService empServ = new EmployeService();
+        // Client cl = empServ.getClient(idClient); 
+        
         request.setAttribute("client",cl);
-
-//        request.setAttribute("client", cl);
     }
     
 }

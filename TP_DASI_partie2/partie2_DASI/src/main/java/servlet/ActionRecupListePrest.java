@@ -28,7 +28,7 @@ public class ActionRecupListePrest extends Action {
         
         HttpSession session = request.getSession();
         Long idCl = (Long) session.getAttribute("idClient");
-        System.out.println("XXXXXXXXidCl="+idCl);
+        
         EmployeService empServ = new EmployeService();
         
         Client cl = empServ.getClient(idCl);

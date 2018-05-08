@@ -30,7 +30,7 @@ public class ActionConnexion extends Action {
         
         ClientService clServ = new ClientService();
         Client cl = clServ.connexion(courriel);
-        System.out.println(cl);
+        
         request.setAttribute("client", cl);
     }
 }

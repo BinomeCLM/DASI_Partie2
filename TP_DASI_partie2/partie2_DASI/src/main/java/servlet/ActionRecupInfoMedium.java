@@ -27,11 +27,9 @@ class ActionRecupInfoMedium extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        Long id = (Long) session.getAttribute("idEmploye");
+        Long id = (Long) session.getAttribute("idEmp");
         
         EmployeService empServ = new EmployeService();
-        //Long idEmp = Long.parseLong(request.getParameter("idEmp")) ;
-        //Long idEmp = new Long(4);
         Employe emp = empServ.getEmploye(id);
         Prestation p = empServ.getWaitingPrestation(emp);
         
@@ -40,10 +38,8 @@ class ActionRecupInfoMedium extends Action {
             if(p!=null)
             {
                 Medium m = p.getMedium();  
-                System.out.println("medium"+ m);
                 request.setAttribute("medium",m);
             }  
-           
         }
     }
     

@@ -23,8 +23,9 @@ public class ActionRecupInfoPrestation extends Action {
 
     @Override
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
+        
         HttpSession session = request.getSession();
-        Long id = (Long) session.getAttribute("idEmploye");
+        Long id = (Long) session.getAttribute("idEmp");
         
         EmployeService empServ = new EmployeService();
         Employe emp = empServ.getEmploye(id);
@@ -34,9 +35,8 @@ public class ActionRecupInfoPrestation extends Action {
         {
             if(p!=null)
             {
-            request.setAttribute("prestation",p);
+                request.setAttribute("prestation",p);
             }  
-           
         }
 
     

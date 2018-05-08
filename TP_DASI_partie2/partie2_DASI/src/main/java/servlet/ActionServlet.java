@@ -66,11 +66,12 @@ public class ActionServlet extends HttpServlet {
                 datajson.sendInscriEtat(request, response);
                 
                 break;
-
-            case "Connexion":
-                // Au moment de la connexion qu'on crée la session parce-que au moment de l'inscription on doit 
+            
+                // J'ai modifié le nom pour distinguer la connexion d'un client
+                // et celle d'un employé
+            case "ConnexionClient":
+                // Au moment de la connexion qu'on crée la session parce-qu'au moment de l'inscription on doit 
                 // quand même se connecter ensuite
-                System.out.println("Case Connexion");
                 ActionConnexion ac = new ActionConnexion();
                 try {
                     ac.executeAction(request);
@@ -87,7 +88,27 @@ public class ActionServlet extends HttpServlet {
                 datajson.sendEtatConnexion(request,response);
                 
                 break;
-
+                
+            case "ConnexionEmploye":
+                
+                ActionConnexionEmploye ace = new ActionConnexionEmploye();
+                try {
+                    ace.executeAction(request);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                // A voir si on peut ameliorer car dans DataJson je fais aussi un request.getAttribute pareil
+                Employe emp = (Employe) request.getAttribute("employe");
+                if (emp != null){
+                    session.setAttribute("idEmp", emp.getId());
+                    System.out.println("idEmp = " + session.getAttribute("idEmp"));
+                }
+                
+                datajson.sendEtatConnexionEmploye(request,response);
+                
+                break;
+                
             case "RecupererInfoClient":
                 if (session.getAttribute("idClient") != null){
                     ActionRecupInfoClient aric = new ActionRecupInfoClient();
@@ -102,57 +123,54 @@ public class ActionServlet extends HttpServlet {
                     // Faire tout sa dans la classe de formatage (passer en parametre request et response
                     datajson.sendDataClient(request, response);
                 }
+                
                 break;
              
             case "RecupererInfoClientPourEmp" :
-                ActionRecupInfoClientPourEmp aricpe = new ActionRecupInfoClientPourEmp();
-                try {
-                    aricpe.executeAction(request);
-                } catch (ParseException ex) {
+                if (session.getAttribute("idEmp") != null){
+                    ActionRecupInfoClientPourEmp aricpe = new ActionRecupInfoClientPourEmp();
+                    try {
+                        aricpe.executeAction(request);
+                    } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // Vérifier qu'on en est besoin temporairement ou pendant 
+                    // toute la session de l'employé
+
+                    datajson.sendDataClient(request, response);
                 }
                 
-                
-                Client c = (Client)request.getAttribute("client");
-              
-                if(c!=null)
-                {
-                    session.setAttribute("idClient",c.getId());
-                    
-                }
-                datajson.sendDataClient(request, response);
                 break;
+                
             case "RecupererInfoClientPourConsultation" :
+                
                 ActionRecupInfoClientPourConsultation aricpc = new ActionRecupInfoClientPourConsultation();
                 try {
                     aricpc.executeAction(request);
                 } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex); 
                 }
-                
-                
-                Client client = (Client)request.getAttribute("client");
               
                 datajson.sendDataClient(request, response);
+                
                 break;
+                
             case "RecupererInfoEmp" :
-                ActionRecupInfosEmp arie = new  ActionRecupInfosEmp();
-                try {
-                    arie.executeAction(request);
-             
-                } catch (ParseException ex) {
-                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 
-                Employe emp = (Employe)request.getAttribute("employe");
-                
-                if(emp != null)
-                {
-                    session.setAttribute("idEmploye", emp.getId());
+                if (session.getAttribute("idEmp") != null){
                     
+                    ActionRecupInfosEmp arie = new  ActionRecupInfosEmp();
+                    try {
+                        arie.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("idEmpRecupInfo = " + session.getAttribute("idEmp"));
+                    datajson.sendDataEmploye(request, response);
                 }
-                datajson.sendDataEmploye(request, response);
+                
                 break;
+                
             case "RecupererInfoPrestation" :
                 
                 ActionRecupInfoPrestation arip = new ActionRecupInfoPrestation();
@@ -162,33 +180,24 @@ public class ActionServlet extends HttpServlet {
                 } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Prestation pr = (Prestation)request.getAttribute("prestation");
                 
-                if(pr!=null)
-                {
-                    session.setAttribute("idPrestation",pr.getId());
-                    
-                }
                 datajson.sendDataPrestation(request, response);
+                
                 break;
                 
             case "RecupererInfoMedium" :
-                ActionRecupInfoMedium arim = new ActionRecupInfoMedium();
-                try {
-                    arim.executeAction(request);
-             
-                } catch (ParseException ex) {
-                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                if (session.getAttribute("idEmp") != null){
+                    ActionRecupInfoMedium arim = new ActionRecupInfoMedium();
+                    try {
+                        arim.executeAction(request);
+
+                    } catch (ParseException ex) {
+                            Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    datajson.sendDataMedium(request, response);
                 }
                 
-                Medium m = (Medium)request.getAttribute("medium");
-                
-                if(m!=null)
-                {
-                    session.setAttribute("idMedium",m.getId());
-                    
-                }
-                datajson.sendDataMedium(request, response);
                 break;
                 
             case "RecupererListeMediums":
@@ -206,7 +215,7 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "RecupererListePrestations":
-                System.out.println("RecupererListePrestationsXXXXXXXXxx");
+                
                 ActionRecupListePrest arlp = new ActionRecupListePrest();
 
                 try {
@@ -215,8 +224,8 @@ public class ActionServlet extends HttpServlet {
                     Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-
                 datajson.sendListePrest(request, response);
+                
                 break;
                 
             case "DemanderVoyance":
@@ -235,36 +244,73 @@ public class ActionServlet extends HttpServlet {
                 break;
             
             case "StartPrestation"  :
-                ActionStartPrestation asp = new ActionStartPrestation();
-                try {
-                    asp.executeAction(request);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                Prestation p = (Prestation)request.getAttribute("prestation");
-                
-                if(p!=null)
-                {
-                    session.setAttribute("idPrestation",p.getId());
+                if (session.getAttribute("idEmp") != null){
+                    ActionStartPrestation asp = new ActionStartPrestation();
+                    try {
+                        asp.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    Prestation p = (Prestation)request.getAttribute("prestation");
                     
+
+                    if(p!=null)
+                    {
+                        // je pense que je suis d'accord il faut garder la session 
+                        // parce-qu'on change de page (d'onglet)
+                        session.setAttribute("idPrestation",p.getId());
+                        session.setAttribute("clientPresta", p.getClient());
+                    }
+                    
+                    datajson.sendDataPrestation(request, response);
                 }
-                datajson.sendDataPrestation(request, response);
+                
                 break;
 
             case "StopPrestation"  :
-                System.out.println("ABCABCACBABCSAASFJAKFAJLKFSAFSAFS"); 
+                
                 ActionStopPrestation astopp = new ActionStopPrestation(); 
                 try {
                     astopp.executeAction(request);
                 } catch (ParseException ex) {
                     Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                System.out.println("ABCABCACBABCSAASFJAKFAJLKFSAFSAFS2"); 
                 
                 datajson.sendInscriStopPrest(request, response);
+                
                 break;
                 
+            case "GenererPrediction":
+                if (session.getAttribute("idEmp") != null){
+                    ActionGenererPrediction agp = new ActionGenererPrediction(); 
+                    agp.executeAction(request);
+
+                    // Ici je pense qu'on est obligé car on change de page pour afficher les prédictions
+                    session.setAttribute("prediction", request.getAttribute("laPrediction"));
+                    
+                    session.setAttribute("amourVal", request.getAttribute("amourVal"));
+                    session.setAttribute("santeVal", request.getAttribute("santeVal"));
+                    session.setAttribute("travailVal", request.getAttribute("travailVal"));
+                       
+                    datajson.sendConfGenerationPred(request, response);
+                }
+                
+                break;
+            
+            case "ObtenirPrediction":
+                if (session.getAttribute("idEmp") != null){
+                    ActionObtenirPrediction aop = new ActionObtenirPrediction(); 
+                    try {
+                        aop.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    datajson.sendPrediction(request, response);
+                }
+                
+                break;
                 
             default:
                 System.out.println("erreurAction");

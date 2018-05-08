@@ -6,11 +6,9 @@
 $(document).ready(function () {
     recupererInfoClientPourConsultation();
     
-    // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
+    // ajout d'un "handler" sur le clic du bouton de Terminer la prestatoin
     $('#terminer').on('click', function () { 
         // affichage pour debugage dans la console javascript du navigateur
-        //        
-
         console.log('Click sur le bouton "Terminer consultation"');
         terminerConsultation();
     });
@@ -21,10 +19,7 @@ function recupererInfoClientPourConsultation() {
         url:'./ActionServlet', 
         type:'POST',
         data: {
-            action:'RecupererInfoClientPourConsultation', 
-            //employe: '4'
-
-           
+            action:'RecupererInfoClientPourConsultation'
         },
         dataType:'json'
     })
@@ -46,13 +41,15 @@ function terminerConsultation() {
     .done(function(data){
         var t="true";
         if (data==t){
-            alert("Le onglet va se fermer");
+            alert("L'onglet va se fermer");
             window.close();        
         }else{
-            alert(data);
+            alert("error " + data);
             alert("error: StopPrest");
         }
-        window.location = "consultation.html";
+        // On retourne sur la demandeDeVoyance plutot non ?
+        // window.location = "consultation.html";
+        window.location = "demandeDeVoyance.html";
         
     });
 }

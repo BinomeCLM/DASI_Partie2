@@ -7,17 +7,38 @@
 
 $(document).ready(function () {
     var url = new URL(window.location.href);
-    var idEmploye=url.searchParams.get("idEmploye");
-    recupererInfoEmploye(idEmploye);
+    var idEmploye = url.searchParams.get("idEmploye");
+    connecterEmploye(idEmploye);
     
-    
-    //desactiverLien();
     $('#demarrerVoyance').on('click', function () {
         demarrerVoyance();
-        
+    });
+    $('#demanderPrediction').on('click', function () {
+        genererPrediction();
     });
 });
 
+// Méthode permettant de connecter l'employé
+// On le fait ici parce-qu'ils n'ont pas fait de service connecterEmploye
+// donc on le simule ...
+function connecterEmploye(idEmploye) {
+    $.ajax({
+       url : './ActionServlet',
+       type: 'POST',
+       data : {
+           action : 'ConnexionEmploye',
+           idEmp : idEmploye
+       },
+       dataType : 'text'
+    })
+    .done(function(data){
+        if (data){
+            alert('Employe est connecté');
+            recupererInfoEmploye(); // On récupére les infos nécessaires une fois
+            // est connecté
+        }
+    });
+}
 
 function demarrerVoyance() {
    $.ajax({
@@ -25,35 +46,31 @@ function demarrerVoyance() {
        type: 'POST',
        data : {
            action : 'StartPrestation'
-           
        },
        dataType : 'json'
     })
     .done(function(data){
-        alert(data);
+        alert('demarrerVoyance');
         openInNewTab("consultation.html");
-//        window.location = "consultation.html";
-        
     });
 }
+
 function openInNewTab(url) {
   var win = window.open(url, '_blank');
   win.focus();
 }
+
 function recupererInfoClientPourEmp() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'RecupererInfoClientPourEmp',
-            //employe: '4'
-
-           
+            action:'RecupererInfoClientPourEmp'
         },
         dataType:'json'
     })
     .done(function(data){
-        alert(data);
+        alert('remplirChampClient');
         remplirChampClient(data);
     });
 };
@@ -63,45 +80,40 @@ function recupererInfoMedium() {
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'RecupererInfoMedium',
-            //employe: '4'
+            action:'RecupererInfoMedium'
         },
         dataType:'json'
     })
     .done(function(data){
-        alert(data);
+        alert('remplirChampMedium');
         remplirChampMedium(data);
     });
 };
 
 
-function recupererInfoEmploye(idEmploye) {
-    
+function recupererInfoEmploye( ) {
+    alert("recupInfoEmp")
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'RecupererInfoEmp',
-            employe: idEmploye, 
+            action:'RecupererInfoEmp'
         },
         dataType:'json'
     })
     .done(function(data){
-        alert(data);
+        alert('On recupere les infos de lemploye');
         remplirChampEmploye(data);
         recupererInfoClientPourEmp();
         recupererInfoMedium();
-        
     });
 };
 
 function remplirChampClient(data) {
     var today = new Date();
-    var yearr = Number(data.dateDeNaissance.substr(6, 10)); 
-    var age = today.getFullYear() - yearr;
-    alert(yearr);
-//    alert(today.getFullYear());
- //   alert(age);
+    var year = Number(data.dateDeNaissance.substr(6, 10)); 
+    var age = today.getFullYear() - year;
+    alert(year);
     $('#infoClient').html(data.civilite + '. ' + data.prenom + ' ' + data.nom + ' | '
             + age + 'ans | #' + data.id);
 }
@@ -117,9 +129,35 @@ function remplirChampMedium(data) {
     }
     else {
         $('#infoMedium').append(data.support);
-    } */
-}
+    } 
+*/}
 
+// Pour la navBar
 function remplirChampEmploye(data) {
     $('#infoEmploye').html(data.nom);
+}
+
+// Pour générer les prédictions
+function genererPrediction () {
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'GenererPrediction',
+            amour: $('#amour').val(),
+            sante: $('#sante').val(),
+            travail: $('#travail').val()
+        },
+        dataType:'json'
+    })
+    .done(function(data){
+        alert(data);
+        if (data){
+            openInNewTab("prediction.html"); 
+        }
+        else {
+            alert('done_erreur');
+            $('#msgErreur').html("Erreur lors de l'envoie des données pour la prédiction");
+        }
+    });
 }

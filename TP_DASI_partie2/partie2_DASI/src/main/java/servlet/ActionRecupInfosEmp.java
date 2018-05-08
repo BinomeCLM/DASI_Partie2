@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,17 +24,13 @@ public class ActionRecupInfosEmp extends Action {
     @Override
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
-        //HttpSession session = request.getSession();
-        //Long id = (Long) session.getAttribute("idClient");
-        
+        HttpSession session = request.getSession();
+        Long idEmp = (Long) session.getAttribute("idEmp");
+        System.out.println("idEmpRecupInfoDansAction = " + session.getAttribute("idEmp"));
         EmployeService empServ = new EmployeService();
-        System.out.println(request.getParameter("employe"));
-        Long idEmp = Long.parseLong(request.getParameter("employe")) ; 
         Employe emp = empServ.getEmploye(idEmp);
         Prestation p = empServ.getWaitingPrestation(emp);
-        
-             
+             // A quoi ça sert de récupérer la prestation si on en fait rien avec ?
         request.setAttribute("employe",emp);
-//        request.setAttribute("client", cl);
     }
 }

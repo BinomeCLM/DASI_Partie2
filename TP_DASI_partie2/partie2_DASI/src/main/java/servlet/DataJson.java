@@ -53,9 +53,6 @@ public class DataJson {
         out.close();
     }
     
-    
-    
-    
     public void sendEtatConnexion(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
         PrintWriter out = response.getWriter();
@@ -73,11 +70,6 @@ public class DataJson {
         out.close();
     }
 
-
-    
-    
-    
-    
     public void sendDataClient(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
         PrintWriter out = response.getWriter();
@@ -87,6 +79,7 @@ public class DataJson {
         
         Client cl = (Client) request.getAttribute("client");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         if (cl!=null){
             jsonClient.addProperty("id",cl.getId());
             jsonClient.addProperty("civilite",cl.getCivilite());
@@ -104,7 +97,10 @@ public class DataJson {
             jsonClient.addProperty("animalTotem", cl.getAnimalTotem());
         }
         else {
-            jsonClient.addProperty("etat", false);
+            // Idée : mettre une propriété id inférieure à 0 comme ça on
+            // ne fait qu'une fois la vérification que le client est null
+            // et pas dans le actionservlet et dans le datajson
+            jsonClient.addProperty("id", -1);
         }
         
         response.setContentType("application/json");
@@ -123,15 +119,12 @@ public class DataJson {
         
         Employe emp = (Employe)request.getAttribute("employe");
         
-        
         if (emp!=null){
             jsonEmploye.addProperty("id",emp.getId());
             jsonEmploye.addProperty("nom",emp.getNomEmploye());
             jsonEmploye.addProperty("talent", emp.getTalent());
             jsonEmploye.addProperty("nbPrestation", emp.getNbPrestation());
             jsonEmploye.addProperty("busy", emp.isBusy());
-            
-          
         }
         else {
             jsonEmploye.addProperty("etat", false);
@@ -151,8 +144,7 @@ public class DataJson {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonPrestation = new JsonObject();
         
-        Prestation pr = (Prestation)request.getAttribute("prestation");
-        
+        Prestation pr = (Prestation) request.getAttribute("prestation");
         
         if (pr!=null){
             jsonPrestation.addProperty("id",pr.getId());
@@ -161,15 +153,16 @@ public class DataJson {
             
             jsonPrestation.addProperty("heureDebut",sdf.format(pr.getHeureDebut()));
             
-            if(pr.getHeureFin() != null)
-            jsonPrestation.addProperty("heureFin", sdf.format(pr.getHeureFin()));
+            if(pr.getHeureFin() != null){
+                jsonPrestation.addProperty("heureFin", sdf.format(pr.getHeureFin()));
+            }
             
             jsonPrestation.addProperty("employe", (pr.getEmploye()).getId());
             jsonPrestation.addProperty("client", (pr.getClient()).getId());
             jsonPrestation.addProperty("medium", (pr.getMedium()).getId());
-          
         }
         else {
+            // TODO : Modifier
             jsonPrestation.addProperty("etat", false);
         }
         
@@ -177,16 +170,7 @@ public class DataJson {
         response.setCharacterEncoding("UTF-8");
         out.println(gson.toJson(jsonPrestation));
         out.close();
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     public void sendDataMedium(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
@@ -195,8 +179,7 @@ public class DataJson {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonMedium = new JsonObject();
         
-        Medium m = (Medium)request.getAttribute("medium");
-        
+        Medium m = (Medium) request.getAttribute("medium");
         
         if (m!=null){
             jsonMedium.addProperty("nom",m.getNom());
@@ -217,6 +200,7 @@ public class DataJson {
                 jsonMedium.addProperty("support", ((Voyant)m).getSupport());
             }
         } else {
+            // TODO : à modifier
             jsonMedium.addProperty("etat", false);
         }
         
@@ -227,7 +211,6 @@ public class DataJson {
         
     }
     
-
     public void sendListeMed(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
         PrintWriter out = response.getWriter();
@@ -270,8 +253,6 @@ public class DataJson {
         out.close();
     }
 
-    
-    
     public void sendListePrest(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
         PrintWriter out = response.getWriter();
@@ -328,5 +309,71 @@ public class DataJson {
         out.print(etatDemande); 
         out.close();
         
+    }
+
+    void sendEtatConnexionEmploye(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       
+        PrintWriter out = response.getWriter();
+        
+        Employe emp = (Employe) request.getAttribute("employe");
+        boolean etatConnexion = false;
+        if (emp != null) {
+            etatConnexion = true;
+        }
+        
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        out.print(etatConnexion);
+        
+        out.close();
+    }
+
+    void sendConfGenerationPred(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        
+        boolean etatPrediction = false;
+        
+        if (request.getAttribute("laPrediction") != null) {
+            etatPrediction = true;
+        }
+        
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        out.print(etatPrediction); 
+        out.close();
+    }
+
+    void sendPrediction(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jsonPrediction = new JsonObject();
+        
+        List<String> donnees = (List<String>) request.getAttribute("dataPrediction");
+        int valAmour = (int) request.getAttribute("amourVal");
+        int valSante = (int) request.getAttribute("amourVal");
+        int valTravail = (int) request.getAttribute("amourVal");
+        Client client = (Client) request.getAttribute("leClientPrediction");
+        Employe emp = (Employe) request.getAttribute("employe");
+        
+        if (donnees != null){
+            jsonPrediction.addProperty("amourStr",donnees.get(0));
+            jsonPrediction.addProperty("santeStr", donnees.get(1));
+            jsonPrediction.addProperty("travailStr", donnees.get(2));
+            jsonPrediction.addProperty("amourVal", valAmour);
+            jsonPrediction.addProperty("santeVal", valSante);
+            jsonPrediction.addProperty("travailVal", valTravail);
+            jsonPrediction.addProperty("prenomClient", client.getPrenom());
+            jsonPrediction.addProperty("idClient", client.getId());
+            jsonPrediction.addProperty("nomClient", client.getNom());
+            jsonPrediction.addProperty("nomEmploye", emp.getNomEmploye());
+        } else {
+            // TODO : à modifier
+        }
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.println(gson.toJson(jsonPrediction));
+        out.close();
     }
 }

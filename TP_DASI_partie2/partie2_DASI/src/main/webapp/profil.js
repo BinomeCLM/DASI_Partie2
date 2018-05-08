@@ -21,7 +21,9 @@ function recupererInfoClient() {
     })
     .done(function(data){
         alert(data);
-        remplirChamp(data);
+        if (data.id >= 0){
+            remplirChamp(data);
+        }// Faire le else si jamais le client n'avait pas d'information ( ne devrait pas être possible normalement)
     });
 };
 
