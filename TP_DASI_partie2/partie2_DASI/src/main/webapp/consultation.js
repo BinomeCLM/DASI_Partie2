@@ -34,7 +34,7 @@ function terminerConsultation() {
        url : './ActionServlet',
        type: 'POST',
        data : {
-           action : 'StopPrestation',  
+           action : 'StopPrestation' 
        },
         dataType: 'text'
     })

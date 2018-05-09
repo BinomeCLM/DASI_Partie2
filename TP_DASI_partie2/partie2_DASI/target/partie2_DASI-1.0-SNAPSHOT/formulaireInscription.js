@@ -32,7 +32,7 @@ function inscription() {
     })
     .done(function(data){
         alert(data);
-        if (data){
+        if (data===true){
             window.location="confEnvoieMail.html";
         }
         else {

@@ -9,8 +9,22 @@ and open the template in the editor.
         <title>Tableau de bord</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="tableauDeBord.js"></script>
     </head>
     <body>
-        
+        <!-- On met le prenom de l'employé pour la navbar ici -->
+        <div id="infoEmploye"></div>
+        <div>
+            <a id="demandeVoyance" href="demandeDeVoyance.html">Demande de voyance</a>
+            | Tableau de bord
+        </div>
+        <h1>Tableau de bord</h1>
+        <p>Total de voyances demandées par médium</p>
+        <div id="resNbVoyMed"></div>
+        <p>Total de voyances réalisées par employé</p>
+        <div id="resNbVoyEmp"></div>
+        <p>Répartition des voyances entre employé</p>
+        <div id="resNbVoyEntreEmp"></div>
     </body>
 </html>

@@ -6,13 +6,10 @@
  
 
 $(document).ready(function () {
-//    alert("A1");
-//    console.log("B1");   
     getInfoClient();
-    //desactiverLien();
 }); 
+
 function getInfoClient(){ 
-//    alert("A2");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -24,6 +21,8 @@ function getInfoClient(){
     .done(function(data){
         alert('remplirChampClient');
         remplirChampClient(data);
+        // Pourquoi le fait-on a ce moment la (récupérer la liste des prestations ?)
+        // C'est l'historique du client ou de l'employé --> A vérifier
         recupererListePrestations();
     });
 }
@@ -40,7 +39,6 @@ function recupererListePrestations() {
         alert('remplirTableauHistorique');
         remplirTableauHistorique(data.prestations);
     });
-    
 };
 
 function remplirTableauHistorique(prestations){
@@ -49,6 +47,10 @@ function remplirTableauHistorique(prestations){
         }  
 }
 
+// ATTENTION
+// TODO : Il faudra modifier la mise en forme une fois le css implémentée
+// Parcontre à quoi sert le compteur ici ?
+// C'est juste un oubli du au copier-coller ou il a une utilité ?
 function ajouterPrestation(compteur,prestation){
      $('#tableauHistorique').append('<tr>'+
             '<td>'+ prestation.heureDebut +'</td>'+

@@ -56,7 +56,6 @@ public class ActionServlet extends HttpServlet {
             
             case "ConfirmationInscription":
                 ActionInscription ai = new ActionInscription();
-                System.out.println("test1)");
                 try {
                     ai.executeAction(request);
                 } catch (ParseException ex) {
@@ -134,45 +133,38 @@ public class ActionServlet extends HttpServlet {
                     } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    // Vérifier qu'on en est besoin temporairement ou pendant 
-                    // toute la session de l'employé
-
                     datajson.sendDataClient(request, response);
                 }
                 
                 break;
                 
             case "RecupererInfoClientPourConsultation" :
-                
-                ActionRecupInfoClientPourConsultation aricpc = new ActionRecupInfoClientPourConsultation();
-                try {
-                    aricpc.executeAction(request);
-                } catch (ParseException ex) {
-                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex); 
+                if (session.getAttribute("idEmp") != null){
+                    ActionRecupInfoClientPourConsultation aricpc = new ActionRecupInfoClientPourConsultation();
+                    try {
+                        aricpc.executeAction(request);
+                    } catch (ParseException ex) {
+                            Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex); 
+                    }
+                    datajson.sendDataClient(request, response);
                 }
-              
-                datajson.sendDataClient(request, response);
                 
                 break;
                 
             case "RecupererInfoEmp" :
-                
                 if (session.getAttribute("idEmp") != null){
-                    
                     ActionRecupInfosEmp arie = new  ActionRecupInfosEmp();
                     try {
                         arie.executeAction(request);
                     } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    System.out.println("idEmpRecupInfo = " + session.getAttribute("idEmp"));
                     datajson.sendDataEmploye(request, response);
                 }
                 
                 break;
                 
             case "RecupererInfoPrestation" :
-                
                 ActionRecupInfoPrestation arip = new ActionRecupInfoPrestation();
                 try {
                     arip.executeAction(request);
@@ -215,16 +207,16 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "RecupererListePrestations":
-                
-                ActionRecupListePrest arlp = new ActionRecupListePrest();
+                if (session.getAttribute("idEmploye") != null){
+                    ActionRecupListePrest arlp = new ActionRecupListePrest();
+                    try {
+                        arlp.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-                try {
-                    arlp.executeAction(request);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    datajson.sendListePrest(request, response);
                 }
-                
-                datajson.sendListePrest(request, response);
                 
                 break;
                 
@@ -268,16 +260,26 @@ public class ActionServlet extends HttpServlet {
                 
                 break;
 
-            case "StopPrestation"  :
-                
-                ActionStopPrestation astopp = new ActionStopPrestation(); 
-                try {
-                    astopp.executeAction(request);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            case "StopPrestation":
+                // Vérification qu'il y est bien une prestation en cours d'ou
+                // l'utilité de garder l'idPresta dans la session
+                if (session.getAttribute("idPrestation") != null){
+                    ActionStopPrestation astopp = new ActionStopPrestation(); 
+                    try {
+                        astopp.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    // Si la prestation a bien été arreter, on enleve les attributs
+                    // inutile de la session de l'employé
+                    if (request.getAttribute("success").equals("true")){
+                        session.removeAttribute("idPrestation");
+                        session.removeAttribute("clientPresta");
+                    }
+                    
+                    datajson.sendInscriStopPrest(request, response);
                 }
-                
-                datajson.sendInscriStopPrest(request, response);
                 
                 break;
                 
@@ -311,6 +313,16 @@ public class ActionServlet extends HttpServlet {
                 }
                 
                 break;
+                
+            case "ObtenirListeEmploye":
+                break;
+                
+            case "Deconnecter":
+                // Est-ce qu'on doit faire une action juste pour ça ? A voir avec le professeur
+                // Y-a-t'il autre chose à faire pour se déconnecter ? 
+                session.invalidate();
+                // Est-ce qu'on envoie un booleen pour le succés même si la on est sur que 
+                // dans tout les cas la session s'est bien terminée ?
                 
             default:
                 System.out.println("erreurAction");

@@ -6,6 +6,7 @@
 package servlet;
 
 import fr.insalyon.b3427.positif.modele.Client;
+import fr.insalyon.b3427.positif.modele.Employe;
 import fr.insalyon.b3427.positif.modele.Medium;
 import fr.insalyon.b3427.positif.modele.Prestation;
 import fr.insalyon.b3427.positif.service.ClientService;
@@ -27,19 +28,27 @@ public class ActionRecupListePrest extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        Long idCl = (Long) session.getAttribute("idClient");
+        // Pour moi on récupére pas la session du client mais celle 
+        // de l'employé vu qu'on est dans EmployeService et a partir de la
+        // on récupére les infos des clients 
+        // Long idCl = (Long) session.getAttribute("idClient");
+        Long idEmp = (Long) session.getAttribute("idEmp");
         
         EmployeService empServ = new EmployeService();
-        
-        Client cl = empServ.getClient(idCl);
-        System.out.println("XXXXXXXXcl="+cl);
-        List<Prestation> listePrestation = empServ.getHistoric(cl);
-        if(listePrestation==null){
-            System.out.println("null lan");          
-        }else{
-            System.out.println("XXXXXXXX"+listePrestation.get(0).getId());          
-            System.out.println("null degil");          
+        // On récupére d'abord l'employé (celui qui est connecté) grâce à la session en cours
+        Employe emp = empServ.getEmploye(idEmp);
+        // Ensuite on récupére la prestation qu'il doit traiter
+        Prestation prestation = empServ.getWaitingPrestation(emp);
+        // A partir de la prestation, on récupére le client qui la demande
+        Client cl = null;
+        if (prestation != null){
+            cl = prestation.getClient();
         }
+        // Une fois toutes les étapes précédentes réalisées, on récupère
+        // l'historique du client DEMANDANT LA PRESTATION (ATTENTION à ne pas confondre avec les IHM côté client
+        // car la ça marchait mais quand nous aurons implémenté la deconnexion, ça ne marchera plus !!
+        List<Prestation> listePrestation = empServ.getHistoric(cl);
+        
         request.setAttribute("listePrestation", listePrestation);
     }
     

@@ -33,14 +33,17 @@ public class DataJson {
     public void sendInscriEtat(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
         PrintWriter out = response.getWriter();
-        
+        System.out.println("1: ");
         boolean success = (boolean) request.getAttribute("success");
-        
+        System.out.println("2: " + success);
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         out.println(success);
         out.close();
     }
+    
+    // A modifier dans le sens ou c'est ligne pour ligne le même code
+    // que la méthode précédente : sendInscriEtat
     public void sendInscriStopPrest(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
         PrintWriter out = response.getWriter();
@@ -271,11 +274,17 @@ public class DataJson {
             jsonPrestation.addProperty("idClient",p.getClient().getId());
             jsonPrestation.addProperty("idEmploye",p.getEmploye().getId());
             jsonPrestation.addProperty("idMedium",p.getMedium().getId());
+            // Ici personnellement je le ferais en plusieurs fois pour les differentes str
+            // et je ferai la concaténation dans le javascript
+            // a voir ensemble si on laisse comme ça ou si on change
             jsonPrestation.addProperty("mediumStr",p.getMedium().getNom()+" ("+p.getMedium().getTalent()+")");
             jsonPrestation.addProperty("employeStr",p.getEmploye().getNomEmploye()); 
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-
+            
+            // Côté IHM, je crois qu'il faut que l'heure de debut
+            // l'heure de fin sert seulement à calculer la durée
+            // ce qui est fait juste en dessous
             jsonPrestation.addProperty("heureDebut", sdf.format(p.getHeureDebut()));
             jsonPrestation.addProperty("heureFin", sdf.format(p.getHeureFin()));
 

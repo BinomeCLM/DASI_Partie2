@@ -26,10 +26,27 @@ public class ActionStopPrestation extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        Long idPrest =  (Long) (session.getAttribute("idPrestation")); 
         Long idEmp =  (Long) (session.getAttribute("idEmploye")); 
         
         EmployeService empServ = new EmployeService();
+        
+        Employe emp = empServ.getEmploye(idEmp);
+        Prestation p = empServ.getWaitingPrestation(emp);
+        empServ.stopPrestation(p);
+        
+        // On vérifie en essayant de récupérer la prestation "en cours" de nouveau 
+        // si celle-ci est nulle c'est que la prestation a bien était stoppé
+        // sinon c'est effectivement qu'il y a un problème avec leur code
+        Prestation pFinish = empServ.getWaitingPrestation(emp);
+        if (pFinish == null){
+            request.setAttribute("success", true);
+        }
+        else {
+            request.setAttribute("success", false);
+        }
+        
+        
+        /*
         // A changer ou voir psk la on a pas le droit d'utiliser DAO
         PrestationDAO prestationDAO = new PrestationDAO();
         System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB3"); 
@@ -46,6 +63,6 @@ public class ActionStopPrestation extends Action {
         
         empServ.stopPrestation(p);   
         System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB5"); 
-        request.setAttribute("success", true);
+        request.setAttribute("success", true);*/
     }
 }
