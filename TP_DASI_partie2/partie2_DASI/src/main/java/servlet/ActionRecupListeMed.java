@@ -27,7 +27,7 @@ public class ActionRecupListeMed extends Action {
         ClientService clServ = new ClientService();
         
         List<Medium> listeMedium = clServ.getListMedium();
-        System.out.println(listeMedium.get(0));
+        //System.out.println(listeMedium.get(0));
         request.setAttribute("listeMedium", listeMedium);
     }
     

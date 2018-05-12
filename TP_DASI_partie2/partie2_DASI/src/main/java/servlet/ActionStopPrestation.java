@@ -26,8 +26,8 @@ public class ActionStopPrestation extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        Long idEmp =  (Long) (session.getAttribute("idEmploye")); 
-        
+        Long idEmp =  (Long) (session.getAttribute("idEmp")); 
+        System.out.println("id :" + idEmp);
         EmployeService empServ = new EmployeService();
         
         Employe emp = empServ.getEmploye(idEmp);

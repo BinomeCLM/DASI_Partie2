@@ -20,7 +20,7 @@ function inscription() {
         type:'POST',
         data: {
             action:'ConfirmationInscription',
-            civilite: $('civilite option:selected').text(),
+            civilite: $('civilite option:selected').val(),
             nom: $('#nom').val(),
             prenom: $('#prenom').val(),
             dateNaissance: $('#dateNaissance').val(),
@@ -32,10 +32,11 @@ function inscription() {
     })
     .done(function(data){
         alert(data);
-        if (data===true){
+        if (data){
             window.location="confEnvoieMail.html";
         }
         else {
+            alert(data);
             alert('done_erreur');
             $('#msgErreur').html("Erreur lors de l'inscription");
         }

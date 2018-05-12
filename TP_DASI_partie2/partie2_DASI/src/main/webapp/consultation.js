@@ -9,7 +9,7 @@ $(document).ready(function () {
     // ajout d'un "handler" sur le clic du bouton de Terminer la prestatoin
     $('#terminer').on('click', function () { 
         // affichage pour debugage dans la console javascript du navigateur
-        console.log('Click sur le bouton "Terminer consultation"');
+        console.log('Click sur le bouton "Terminer consultation!"');
         terminerConsultation();
     });
 });
@@ -39,8 +39,9 @@ function terminerConsultation() {
         dataType: 'text'
     })
     .done(function(data){
-        var t="true";
-        if (data==t){
+        alert(data);
+        //var t="true";
+        if (data){
             alert("L'onglet va se fermer");
             window.close();        
         }else{
