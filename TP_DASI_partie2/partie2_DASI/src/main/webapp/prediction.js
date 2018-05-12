@@ -26,7 +26,7 @@ function afficherPrediction() {
 };
 
 function rempirChampPrediction(data) {
-    $('infoEmp').html(data.nomEploye);
+    $('infoEmp').html(data.nomEmploye);
     $('client').html('Prédiction pour ' + data.prenomClient + ' ' + data.nomClient + ' #' + data.idClient);
     $('amourResultat').html('Amour : (' + data.amourVal + '/5):');
     $('amourString').html(data.amourStr);

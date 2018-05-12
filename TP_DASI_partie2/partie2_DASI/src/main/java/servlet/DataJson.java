@@ -345,7 +345,7 @@ public class DataJson {
         if (request.getAttribute("laPrediction") != null) {
             etatPrediction = true;
         }
-        
+        System.out.println("debug GenererPred");
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         out.print(etatPrediction); 
@@ -359,12 +359,15 @@ public class DataJson {
         JsonObject jsonPrediction = new JsonObject();
         
         List<String> donnees = (List<String>) request.getAttribute("dataPrediction");
-        int valAmour = (int) request.getAttribute("amourVal");
-        int valSante = (int) request.getAttribute("amourVal");
-        int valTravail = (int) request.getAttribute("amourVal");
+        int valAmour = (int) request.getAttribute("valeur");
+        int valSante = (int) request.getAttribute("santeVal");
+        int valTravail = (int) request.getAttribute("travailVal");
         Client client = (Client) request.getAttribute("leClientPrediction");
         Employe emp = (Employe) request.getAttribute("employe");
-        
+        System.out.println(client + " pour prediction");
+        System.out.println(emp + " pour prediction");
+        System.out.println(valSante + " pour prediction");
+        System.out.println(donnees.get(0) + " pour prediction");
         if (donnees != null){
             jsonPrediction.addProperty("amourStr",donnees.get(0));
             jsonPrediction.addProperty("santeStr", donnees.get(1));

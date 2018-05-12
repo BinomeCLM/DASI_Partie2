@@ -9,23 +9,42 @@ and open the template in the editor.
         <title>Connexion</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="connexion.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="connexion.js"></script>
     </head>
     <body>
-        <h1>S'identifier</h1>
-        <p id="connexionFail"></p>
-        <form>
-            <label for="courriel">Courriel </label>
-            <input type="text" id="courriel" name="courriel"/>
-            </br>
-            <input id="seConnecter" type="button" value="Accéder au service" />
-        </form>
-        <div id="traitementConnexion"></div>
-        <!-- J'ai mis ça pour l'instant pour éviter de passer par la barre de recherche tout le temps 
-        pendant le développement -->
-        <a href='demandeDeVoyance.html?idEmploye=4'>Se connecter en tant qu'employé numéro 1</a>
-        <a href='demandeDeVoyance.html?idEmploye=5'>Se connecter en tant qu'employé numéro 2</a>
-        <a href='demandeDeVoyance.html?idEmploye=6'>Se connecter en tant qu'employé numéro 3</a>
+        <div class="wrapper">
+            <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
+            <div class="centre"></div>
+            <div class="identifier"><a href="connexion.html">S'identifier</a></div>
+            <div class="inscrire"><a href="formulaireInscription.html">S'inscrire</a></div>
+        </div>
+        <div class="wrapperConnexion">
+            <h1>S'identifier</h1>
+            <p id="connexionFail"></p>
+            <form>
+                <p>
+                    <label for="courriel">Courriel</label>
+                    <input type="text" id="courriel" name="courriel"/>
+                </p>
+                <p>
+                    <input id="seConnecter" type="button" value="Accéder au service" />
+                </p>
+            </form>
+            <div id="traitementConnexion"></div>
+            <!-- J'ai mis ça pour l'instant pour éviter de passer par la barre de recherche tout le temps 
+            pendant le développement -->
+            <p>
+                <a href='demandeDeVoyance.html?idEmploye=4'>Se connecter en tant qu'employé numéro 1</a>
+            </p>
+            <p>
+                <a href='demandeDeVoyance.html?idEmploye=5'>Se connecter en tant qu'employé numéro 2</a>
+            </p>  
+            <p>
+                <a href='demandeDeVoyance.html?idEmploye=6'>Se connecter en tant qu'employé numéro 3</a>
+            </p>
+        </div>
     </body>
 </html>

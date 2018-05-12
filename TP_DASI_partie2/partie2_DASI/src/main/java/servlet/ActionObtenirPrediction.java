@@ -25,12 +25,11 @@ class ActionObtenirPrediction extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        List<String> dataPrediction = (List<String>) session.getAttribute("laPrediction");
+        List<String> dataPrediction = (List<String>) session.getAttribute("prediction");
         Long id = (Long) session.getAttribute("idEmp");
-        
-        int amourVal = (int) session.getAttribute("amourVal");
-        int santeVal = (int) session.getAttribute("santeVal");
-        int travailVal = (int) session.getAttribute("travailVal");
+        int amourVal = (int) session.getAttribute("valeuramour");
+        int santeVal = (int) session.getAttribute("valeursante");
+        int travailVal = (int) session.getAttribute("valeurtravail");
         
         EmployeService empServ = new EmployeService();
         Client cl = empServ.getClient(id);
@@ -38,9 +37,9 @@ class ActionObtenirPrediction extends Action {
         
         request.setAttribute("dataPrediction", dataPrediction);
         request.setAttribute("leClientPrediction", cl);
-        request.setAttribute("amourVal", amourVal);
-        request.setAttribute("santeVal", santeVal);
-        request.setAttribute("travailVal", travailVal);
+        request.setAttribute("valeuramour", amourVal);
+        request.setAttribute("valeursante", santeVal);
+        request.setAttribute("valeurtravail", travailVal);
         request.setAttribute("employe", emp);
         
     }

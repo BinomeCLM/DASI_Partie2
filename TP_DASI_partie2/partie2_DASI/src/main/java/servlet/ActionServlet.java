@@ -291,9 +291,9 @@ public class ActionServlet extends HttpServlet {
                     // Ici je pense qu'on est obligé car on change de page pour afficher les prédictions
                     session.setAttribute("prediction", request.getAttribute("laPrediction"));
                     
-                    session.setAttribute("amourVal", request.getAttribute("amourVal"));
-                    session.setAttribute("santeVal", request.getAttribute("santeVal"));
-                    session.setAttribute("travailVal", request.getAttribute("travailVal"));
+                    session.setAttribute("valeuramour", (int) request.getAttribute("valeuramour"));
+                    session.setAttribute("valeursante", (int) request.getAttribute("valeursante"));
+                    session.setAttribute("valeurtravail", (int) request.getAttribute("valeurtravail"));
                        
                     datajson.sendConfGenerationPred(request, response);
                 }
@@ -323,6 +323,8 @@ public class ActionServlet extends HttpServlet {
                 session.invalidate();
                 // Est-ce qu'on envoie un booleen pour le succés même si la on est sur que 
                 // dans tout les cas la session s'est bien terminée ?
+                
+                break;
                 
             default:
                 System.out.println("erreurAction");

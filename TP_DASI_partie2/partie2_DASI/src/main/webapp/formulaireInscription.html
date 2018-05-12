@@ -9,39 +9,39 @@ and open the template in the editor.
         <title>S'inscrire</title>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="formulaireInscription.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="formulaireInscription.js"></script>
-        <!-- mettre un lien vers le fichier js -->
     </head>
     <body>
+        <div class="wrapper">
+            <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
+            <div class="centre"></div>
+            <div class="identifier"><a href="connexion.html">S'identifier</a></div>
+            <div class="inscrire"><a href="formulaireInscription.html">S'inscrire</a></div>
+        </div>
         <h1>S'inscrire</h1>
         <div id="msgErreur"></div>
         <form method="POST">
-            <label for="civilite">Civilité</label>
-            <select name="civilite" id="civilite">
-                <option value="monsieur">Monsieur</option>
-                <option value="Madame">Madame</option>
-            </select>
-            </br>
-            <label for="prenom">Prenom</label>
-            <input type="text" name="prenom" id="prenom"/>
-            </br>
-            <label for="nom">Nom</label>
-            <input type="text" name="nom" id="nom"/>
-            </br>
-            <label for="dateNaissance">Date de naissance</label>
-            <input type="text" name="dateNaissance" id="dateNaissance"/>
-            </br>
-            <label for="adresse">Adresse postale</label>
-            <input type="text" name="adresse" id="adresse"/>
-            </br>
-            <label for="telephone">Telephone</label>
-            <input type="text" name="telephone" id="telephone"/>
-            </br>
-            <label for="mail">Courriel</label>
-            <input type="text" name="mail" id="mail"/>
-            </br>
-            <input id="validerForm" type="button" value="Confirmer inscription" />
+                <label for="civilite">Civilité</label>
+                <select name="civilite" id="civilite">
+                    <option value="Mr">Monsieur</option>
+                    <option value="Mme">Madame</option>
+                </select>
+                <label for="prenom">Prenom</label>
+                <input type="text" name="prenom" id="prenom"/>
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom"/>
+                <label for="dateNaissance">Date de naissance</label>
+                <input type="text" name="dateNaissance" id="dateNaissance"/>
+                <label for="adresse">Adresse postale</label>
+                <input type="text" name="adresse" id="adresse"/>
+                <label for="telephone">Telephone</label>
+                <input type="text" name="telephone" id="telephone"/>
+                <label for="mail">Courriel</label>
+                <input type="text" name="mail" id="mail"/>
+                <input id="validerForm" type="button" value="Confirmer inscription" />
         </form>
     </body>
 </html>

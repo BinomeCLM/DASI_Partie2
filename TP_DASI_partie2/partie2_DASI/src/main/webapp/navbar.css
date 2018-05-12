@@ -1,0 +1,35 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 mai 2018, 10:11:53
+    Author     : Chris
+*/
+
+.wrapper {
+    display:grid;
+    grid-template-columns: repeat(12, [col-start] 1fr);
+    grid-gap: 20px;
+    background-color: #D8DCDC; 
+}
+
+.logo {
+    grid-column: col-start / span 1;
+    align-content: center;
+}
+
+.centre {
+    grid-column: col-start 2 / span 10;
+    align-content: center;
+}
+
+.identifier {
+    grid-column: col-start 11/ span 1;
+}
+
+.inscrire {
+    grid-column: col-start 12 / span -1;
+    vertical-align: middle;
+}

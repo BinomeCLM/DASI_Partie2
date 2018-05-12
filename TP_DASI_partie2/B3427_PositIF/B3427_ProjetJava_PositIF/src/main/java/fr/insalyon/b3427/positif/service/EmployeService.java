@@ -43,7 +43,7 @@ public class EmployeService {
         try {
             AstroTest aT;
             aT = new AstroTest(AstroTest.MA_CLE_ASTRO_API);
-            
+            System.out.println(sante + ' ' + amour + ' ' + travail);
             return aT.getPredictions(cl.getCouleur(), cl.getAnimalTotem(), amour, sante, travail);
         } catch (IOException ex) {
             Logger.getLogger(EmployeService.class.getName()).log(Level.SEVERE, null, ex);

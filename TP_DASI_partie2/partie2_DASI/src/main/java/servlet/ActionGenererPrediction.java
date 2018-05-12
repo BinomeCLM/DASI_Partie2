@@ -7,6 +7,7 @@ package servlet;
 
 import fr.insalyon.b3427.positif.modele.Client;
 import fr.insalyon.b3427.positif.modele.Employe;
+import fr.insalyon.b3427.positif.modele.Prestation;
 import fr.insalyon.b3427.positif.service.EmployeService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -27,17 +28,24 @@ class ActionGenererPrediction extends Action{
         int amour = Integer.parseInt(request.getParameter("amour"));
         int sante = Integer.parseInt(request.getParameter("sante"));
         int travail = Integer.parseInt(request.getParameter("travail"));
-        
+        System.out.println("amour " + amour + sante + travail);
         
         EmployeService empServ = new EmployeService();
         Employe emp = empServ.getEmploye(id);
-        Client cl = empServ.getClient(id);
+        // attention récupérer la prestation puis le client !!!
+        Prestation prestation = empServ.getWaitingPrestation(emp);
+        // A partir de la prestation, on récupére le client qui la demande
+        Client cl = null;
+        if (prestation != null){
+            cl = prestation.getClient();
+        }
+        System.out.println(cl);
         List<String> laPrediction = empServ.getPrediction(cl, amour, sante, travail);
         
         request.setAttribute("laPrediction", laPrediction);
-        request.setAttribute("valSante", sante);
-        request.setAttribute("valAmour", amour);
-        request.setAttribute("valTravail", travail);
+        request.setAttribute("valeursante", sante);
+        request.setAttribute("valeuramour", amour);
+        request.setAttribute("valeurtravail", travail);
     }
     
 }
