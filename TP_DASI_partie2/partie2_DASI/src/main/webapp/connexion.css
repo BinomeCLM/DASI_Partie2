@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 11 mai 2018, 11:08:07
     Author     : Chris
 */
-h1 {
+/*h1 {
     text-align: center;
     display: block;
 }
@@ -35,4 +35,31 @@ p #seConnecter {
 
 a {
     text-align: center;
+}*/
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: max-content;
+    align-content: flex-start;
+}
+
+
+.box>* {
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    background-color: red;
+}
+
+.box>* label {
+    align-self: flex-start;
+    
+}
+
+.box input,.box button {
+    justify-self: center ;
+    background-color: blue;
 }

@@ -46,7 +46,8 @@ function recupererListeMediums() {
 };
 
 function remplirChamp(data) {
-    $('#prenom').html(data.prenom);
+    $('#possibilite').prepend(data.prenom + ' ' + data.nom);
+    $('#prenom').html(data.prenom)
 }
 
 function ajouterListeMediums(compteur, data) {
@@ -57,36 +58,23 @@ function ajouterListeMediums(compteur, data) {
     // C'était just epour tester et voir si ça marcher pour l'instant
     // Idée : mettre de balises div avec attributs ou classe si besoin
     // et dans le fichier css faire l'alignement grâce à des display ...
-    $('#voyants').append('<tr id="prenomETmetier">'
-            +   '<td id="nom">' + data.nom + '</td>'
-            +   '<td id="metier">' + data.metier + '</td>'
-            +'</tr>'
-            +'<tr>'
-            +    '<td colspan="2" id="description">' + data.bio + '</td>'
-            +'</tr>');
+    $('#voyants').append('<div id="prenomETmetier">'
+            +       '<div id="nom">' + data.nom + '</div>'
+            +       '<div id="metier">' + data.metier + '</div>'
+            +   '</div>'
+            +   '<div id="description">' + data.bio + '</div>');
     if (data.metier === 'Tarologue'){
-        $('tr').last().after('<tr>'
-            +    '<td colspan="2" id="Objet">Cartes : ' + data.cartes + '</td>'
-            +'</tr>'
-            +'<tr>'
-            +    '<td><button type="button" id="' + data.id + '">Demander voyance</button></td>'
-            +'</tr>');
+        $('div').last().after('<div id="Objet">Cartes : ' + data.cartes + '</div>'
+            +'<div><button type="button" id="' + data.id + '">Demander voyance</button></div>');
     } 
     else if (data.metier === 'Astrologue') {
-        $('tr').last().after('<tr>'
-            +    '<td colspan="2" id="Objet">Ecole' + data.ecole + '</br>Promotion : ' + data.promotion + '</td>'
-            +'</tr>'
-            +'<tr>'
-            +    '<td><button type="button" id="' + data.id + '">Demander voyance</button></td>'
-            +'</tr>');
+        $('div').last().after('<div id="Objet">Ecole' + data.ecole + '</br>Promotion : ' + data.promotion + '</div>'
+            +'<div><button type="button" id="' + data.id + '">Demander voyance</button></div>');
     }
     else {
-        $('tr').last().after('<tr>'
-            +    '<td colspan="2" id="Objet">Support : ' + data.support + '</td>'
-            +'</tr>'
-            +'<tr>'
-            +    '<td><button type="button" id="' + data.id + '">Demander voyance</button></td>'
-            +'</tr>');
+        $('div').last().after('<div id="Objet">Support : ' + data.support + '</div>'
+           
+            +'<div><button type="button" id="' + data.id + '">Demander voyance</button></div>');
     } 
 }
 

@@ -9,17 +9,25 @@ and open the template in the editor.
         <title>Liste médiums</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="serviceVoyance.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="serviceVoyance.js"></script>
     </head>
     <body>
+        <div class="wrapper">
+            <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
+            <div class="centre"></div>
+            <div class="possibilite"> | <a href="formulaireInscription.html">S'inscrire</a>
+            </div>
+        </div>
         <h1>Bienvenue <span id="prenom"></span></h1>
-        <div>
+        <div id="lienClientPossibilite">
             <a id="consulterProfil" href="profil.html">Consulter votre profil astrologique</a>
             | Accéder au service de voyances
         </div>
-        <table id="voyants">
+        <div id="voyants">
             
-        </table>
+        </div>
     </body>
 </html>
