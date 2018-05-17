@@ -46,8 +46,8 @@ function recupererListeMediums() {
 };
 
 function remplirChamp(data) {
-    $('#possibilite').prepend(data.prenom + ' ' + data.nom);
-    $('#prenom').html(data.prenom)
+    $('.possibilite').prepend(data.prenom + ' ' + data.nom);
+    $('#prenom').html(data.prenom);
 }
 
 function ajouterListeMediums(compteur, data) {

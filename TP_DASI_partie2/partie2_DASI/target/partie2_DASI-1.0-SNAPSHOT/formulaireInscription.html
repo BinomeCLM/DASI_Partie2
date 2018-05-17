@@ -25,24 +25,40 @@ and open the template in the editor.
         <h1>S'inscrire</h1>
         <div id="msgErreur"></div>
         <form method="POST">
+            <div class="elementForm">
                 <label for="civilite">Civilité</label>
                 <select name="civilite" id="civilite">
                     <option value="Mr">Monsieur</option>
                     <option value="Mme">Madame</option>
                 </select>
+            </div>
+            <div class="elementForm">
                 <label for="prenom">Prenom</label>
                 <input type="text" name="prenom" id="prenom"/>
+            </div>
+            <div class="elementForm">
                 <label for="nom">Nom</label>
                 <input type="text" name="nom" id="nom"/>
+            </div>
+            <div class="elementForm">
                 <label for="dateNaissance">Date de naissance</label>
                 <input type="text" name="dateNaissance" id="dateNaissance"/>
+            </div>
+            <div class="elementForm">
                 <label for="adresse">Adresse postale</label>
                 <input type="text" name="adresse" id="adresse"/>
+            </div>
+            <div class="elementForm">
                 <label for="telephone">Telephone</label>
                 <input type="text" name="telephone" id="telephone"/>
+            </div>
+            <div class="elementForm">
                 <label for="mail">Courriel</label>
                 <input type="text" name="mail" id="mail"/>
+            </div>
+            <div class="elementForm">
                 <input id="validerForm" type="button" value="Confirmer inscription" />
+            </div>
         </form>
     </body>
 </html>

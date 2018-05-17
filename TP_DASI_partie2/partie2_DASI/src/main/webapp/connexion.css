@@ -7,35 +7,6 @@ and open the template in the editor.
     Created on : 11 mai 2018, 11:08:07
     Author     : Chris
 */
-/*h1 {
-    text-align: center;
-    display: block;
-}
-
-p {
-    text-align: center;
-}
-
-form {
-    position:inherit;
-    left:50%;
-    text-align: center;
-}
-
-p #courriel{
-    padding: 4px;
-    margin-bottom: 0px;
-    margin-left: 60px;
-}
-p #seConnecter {
-    padding: 4px;
-    margin-bottom: 0px;
-    margin-left: 84px;
-}
-
-a {
-    text-align: center;
-}*/
 
 .box {
     display: flex;
