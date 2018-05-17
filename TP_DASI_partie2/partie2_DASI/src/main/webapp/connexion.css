@@ -41,25 +41,47 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: max-content;
-    align-content: flex-start;
+    align-content: space-around;
+    justify-content: flex-start;
 }
 
+.lesEmp {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
 
 .box>* {
     align-self: center;
+    width:35%;
+}
+
+form {
     display: flex;
-    justify-content: flex-end;
     flex-direction: column;
-    background-color: red;
+    align-items: flex-end;
+    width: 30%;
+    justify-content: flex-end;
+    align-content: space-between;
 }
 
-.box>* label {
+.formBox {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-content:space-between;
+}
+
+label {
     align-self: flex-start;
-    
+}
+input {
+    align-self: flex-end;
 }
 
-.box input,.box button {
-    justify-self: center ;
-    background-color: blue;
+#seConnecter {
+    width: 50%;
 }
