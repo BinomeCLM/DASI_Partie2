@@ -9,36 +9,54 @@ and open the template in the editor.
         <title>Demande de voyance</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="demandeDeVoyance.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="demandeDeVoyance.js"></script>
     </head>
     <body>
-        <div id="infoEmploye"></div>
-        <div id="demandeVoyance">Demande de voyance | 
-            <a id="tableauDeBord" href="tableauDeBord.html">Tableau de bord</a>
+        <div class="wrapper">
+            <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
+            <div class="possibilite"> | <a href="connexion.html"><span id="deconnexion">Se déconnecter</span></a></div>
         </div>
-        <h1>Demande de Voyance</h1>
-        <div id="detailDemande">
-            <div id="infoClient"></div>
-            <div id="infoMedium"></div>
+        <div id="box">
+            <div id="demandeBox">
+                <div id="demandeVoyance">Demande de voyance | 
+                    <a id="tableauDeBord" href="tableauDeBord.html">Tableau de bord</a>
+                </div>
+                <h2>Demande de Voyance</h2>
+                <div id="detailDemande">
+                    <div id="infoClient"></div>
+                    <div id="infoMedium"></div>
+                </div>
+                <div id="consultHisto">
+                    <a href="historique.html" id="consultHisto">Consulter l'historique</a>
+                </div>
+                <div class="boutonBox">
+                    <button id="demarrerVoyance">Démarrer voyance</button>
+                </div>
+            </div>
+            <div id="predicBox">
+                <h2>Générer prédiction</h2>
+                <!-- Ici on essayeras de faire leur IHM mais pour l'instant on reste comme ça -->
+                <form>
+                    <div class="divFormBox">
+                        <label for="amour">Amour</label>
+                        <input type="range" max="5" min="0" step="1" name="amour" id="amour"/>
+                    </div>
+                    <div class="divFormBox">
+                        <label for="sante">Santé</label>
+                        <input type="range" name="sante" id="sante"/>
+                    </div>
+                    <div class="divFormBox">
+                        <label for="travail">Travail</label>
+                        <input type="range" name="travail" id="travail"/>
+                    </div>
+                    <div class="boutonBox">
+                        <input id="demanderPrediction" type="button" value="Générer prédiction" />
+                    </div>
+                </form>
+            </div>
         </div>
-        <a href="historique.html">Consulter l'historique</a>
-        </br> 
-        <button id="demarrerVoyance">Démarrer voyance</button>
-        
-        <h2>Générer prédiction</h2>
-        <!-- Ici on essayeras de faire leur IHM mais pour l'instant on reste comme ça -->
-        <form>
-            <label for="amour">Amour</label>
-            <input type="number" name="amour" id="amour"/>
-            </br>
-            <label for="sante">Santé</label>
-            <input type="number" name="sante" id="sante"/>
-            </br>
-            <label for="travail">Travail</label>
-            <input type="number" name="travail" id="travail"/>
-            </br>
-            <input id="demanderPrediction" type="button" value="Générer prédiction" />
-        </form>
     </body>
 </html>

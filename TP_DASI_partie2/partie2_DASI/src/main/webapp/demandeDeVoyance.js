@@ -92,7 +92,7 @@ function recupererInfoMedium() {
 
 
 function recupererInfoEmploye( ) {
-    alert("recupInfoEmp")
+    alert("recupInfoEmp");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -134,7 +134,7 @@ function remplirChampMedium(data) {
 
 // Pour la navBar
 function remplirChampEmploye(data) {
-    $('#infoEmploye').html(data.nom);
+    $('.possibilite').prepend(data.nom);
 }
 
 // Pour générer les prédictions

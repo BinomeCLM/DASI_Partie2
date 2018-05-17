@@ -1,0 +1,96 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17 mai 2018, 11:48:01
+    Author     : Chris
+*/
+
+#demandeVoyance, #consultHisto{
+    text-align: center;
+}
+
+#box {
+    display : flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+}
+
+#predicBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 40%;
+}
+
+#demandeBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: space-between;
+    width: 40%;
+}
+
+#demandeBox>* {
+    margin-top:10px;
+}
+#boutonDemarrerVoy {
+    display: flex;
+    justify-content:flex-start;
+    align-items: stretch;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+}
+
+button, #demanderPrediction {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#detailDemande {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+#infoClient {
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    background-color: aliceblue;
+    margin-bottom: 10px;
+    flex: 2;
+    text-align: center;
+}
+
+input {
+    margin-left: auto;
+}
+
+.divFormBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    align-content: center;
+}
+
+.divFormBox>input {
+    margin-left: auto;
+    width:70%;
+}
