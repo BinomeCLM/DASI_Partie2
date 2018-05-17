@@ -207,14 +207,14 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "RecupererListePrestations":
-                if (session.getAttribute("idEmploye") != null){
+                if (session.getAttribute("idEmp") != null){
+
                     ActionRecupListePrest arlp = new ActionRecupListePrest();
                     try {
                         arlp.executeAction(request);
                     } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                     datajson.sendListePrest(request, response);
                 }
                 
@@ -251,7 +251,7 @@ public class ActionServlet extends HttpServlet {
                     {
                         // je pense que je suis d'accord il faut garder la session 
                         // parce-qu'on change de page (d'onglet)
-                        session.setAttribute("idPrestation",p.getId());
+                        session.setAttribute("prestation",p);
                         session.setAttribute("clientPresta", p.getClient());
                     }
                     
@@ -263,7 +263,7 @@ public class ActionServlet extends HttpServlet {
             case "StopPrestation":
                 // Vérification qu'il y est bien une prestation en cours d'ou
                 // l'utilité de garder l'idPresta dans la session
-                if (session.getAttribute("idPrestation") != null){
+                if (session.getAttribute("prestation") != null){
                     ActionStopPrestation astopp = new ActionStopPrestation(); 
                     try {
                         astopp.executeAction(request);
@@ -273,8 +273,8 @@ public class ActionServlet extends HttpServlet {
                     
                     // Si la prestation a bien été arreter, on enleve les attributs
                     // inutile de la session de l'employé
-                    if (request.getAttribute("success").equals("true")){
-                        session.removeAttribute("idPrestation");
+                    if ((boolean) request.getAttribute("success")){
+                        session.removeAttribute("prestation");
                         session.removeAttribute("clientPresta");
                     }
                     

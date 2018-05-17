@@ -166,7 +166,7 @@ public class DataJson {
         }
         else {
             // TODO : Modifier
-            jsonPrestation.addProperty("etat", false);
+            jsonPrestation.addProperty("id", -1);
         }
         
         response.setContentType("application/json");
@@ -204,7 +204,7 @@ public class DataJson {
             }
         } else {
             // TODO : à modifier
-            jsonMedium.addProperty("etat", false);
+            jsonMedium.addProperty("id", -1);
         }
         
         response.setContentType("application/json");
@@ -268,35 +268,38 @@ public class DataJson {
         List<Prestation> listePrestation = (List<Prestation>) request.getAttribute("listePrestation");
 
         for (Prestation p : listePrestation) {
-            JsonObject jsonPrestation = new JsonObject();
-            
-            jsonPrestation.addProperty("id",p.getId());
-            jsonPrestation.addProperty("idClient",p.getClient().getId());
-            jsonPrestation.addProperty("idEmploye",p.getEmploye().getId());
-            jsonPrestation.addProperty("idMedium",p.getMedium().getId());
-            // Ici personnellement je le ferais en plusieurs fois pour les differentes str
-            // et je ferai la concaténation dans le javascript
-            // a voir ensemble si on laisse comme ça ou si on change
-            jsonPrestation.addProperty("mediumStr",p.getMedium().getNom()+" ("+p.getMedium().getTalent()+")");
-            jsonPrestation.addProperty("employeStr",p.getEmploye().getNomEmploye()); 
+            // Doit-on afficher les prestations non terminées ?
+            if (p.getHeureFin() != null){
+                JsonObject jsonPrestation = new JsonObject();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-            
-            // Côté IHM, je crois qu'il faut que l'heure de debut
-            // l'heure de fin sert seulement à calculer la durée
-            // ce qui est fait juste en dessous
-            jsonPrestation.addProperty("heureDebut", sdf.format(p.getHeureDebut()));
-            jsonPrestation.addProperty("heureFin", sdf.format(p.getHeureFin()));
+                jsonPrestation.addProperty("id",p.getId());
+                jsonPrestation.addProperty("idClient",p.getClient().getId());
+                jsonPrestation.addProperty("idEmploye",p.getEmploye().getId());
+                jsonPrestation.addProperty("idMedium",p.getMedium().getId());
+                // Ici personnellement je le ferais en plusieurs fois pour les differentes str
+                // et je ferai la concaténation dans le javascript
+                // a voir ensemble si on laisse comme ça ou si on change
+                jsonPrestation.addProperty("mediumStr",p.getMedium().getNom()+" ("+p.getMedium().getTalent()+")");
+                jsonPrestation.addProperty("employeStr",p.getEmploye().getNomEmploye()); 
 
-            Long diff = p.getHeureFin().getTime()-p.getHeureDebut().getTime();
-            Long diffSeconds = diff / 1000 % 60;         
-            Long diffMinutes = diff / (60 * 1000) % 60;         
-            Long diffHours = diff / (60 * 60 * 1000);
-            String duree= diffHours+"'"+diffMinutes+"''"+diffSeconds+"'''";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+
+                // Côté IHM, je crois qu'il faut que l'heure de debut
+                // l'heure de fin sert seulement à calculer la durée
+                // ce qui est fait juste en dessous
+                jsonPrestation.addProperty("heureDebut", sdf.format(p.getHeureDebut()));
+                jsonPrestation.addProperty("heureFin", sdf.format(p.getHeureFin()));
+
+                Long diff = p.getHeureFin().getTime()-p.getHeureDebut().getTime();
+                Long diffSeconds = diff / 1000 % 60;         
+                Long diffMinutes = diff / (60 * 1000) % 60;         
+                Long diffHours = diff / (60 * 60 * 1000);
+                String duree= diffHours+"'"+diffMinutes+"''"+diffSeconds+"'''";
+
+                jsonPrestation.addProperty("dureeStr",duree); 
             
-            jsonPrestation.addProperty("dureeStr",duree); 
-            
-            jsonListe.add(jsonPrestation);
+                jsonListe.add(jsonPrestation);
+            }
         }
     
         container.add("prestations", jsonListe);

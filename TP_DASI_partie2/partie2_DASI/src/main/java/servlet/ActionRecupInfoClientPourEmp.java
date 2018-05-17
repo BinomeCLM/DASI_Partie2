@@ -39,7 +39,14 @@ public class ActionRecupInfoClientPourEmp extends Action {
             {
                 Client cl = empServ.getClient((p.getClient()).getId());
                 request.setAttribute("client",cl);
-            }  
+            } 
+            else {
+                request.setAttribute("client", null);
+            }
+        }
+        else
+        {
+            request.setAttribute("client", null);
         }
     }
     

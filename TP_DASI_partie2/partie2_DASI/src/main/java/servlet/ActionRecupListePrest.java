@@ -35,12 +35,14 @@ public class ActionRecupListePrest extends Action {
         Long idEmp = (Long) session.getAttribute("idEmp");
         
         EmployeService empServ = new EmployeService();
+        System.out.println(idEmp + "coucou");
         // On récupére d'abord l'employé (celui qui est connecté) grâce à la session en cours
         Employe emp = empServ.getEmploye(idEmp);
         // Ensuite on récupére la prestation qu'il doit traiter
         Prestation prestation = empServ.getWaitingPrestation(emp);
         // A partir de la prestation, on récupére le client qui la demande
         Client cl = null;
+        System.out.println("prestation liste : " + prestation);
         if (prestation != null){
             cl = prestation.getClient();
         }

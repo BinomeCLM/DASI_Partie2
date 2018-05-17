@@ -9,21 +9,30 @@ and open the template in the editor.
     <title>Historique</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="historique.css"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="historique.js"></script>
 </head>
 <body>
-    <div>
-       <h1 id="infoClient"></h1>
+    <div class="wrapper">
+        <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
+        <div class="possibilite"> | <a href="connexion.html"><span id="deconnexion">Se déconnecter</span></a></div>
     </div>
-    <table id="tableauHistorique">
-        <tr>
-            <th>Date</th>
-            <th>Médium</th>
-            <th>Employé</th>
-            <th>Durée</th>
-        </tr>
-    </table>
-
+    <h1 id="infoClient"></h1>
+    <div id="tableauHistorique">
+        <div class="infoBox">
+            <div id="date">Date</div>
+        </div>
+        <div class="infoBox">
+            <div id="medium">Médium</div>
+        </div>
+        <div class="infoBox">
+            <div id="employe">Employé</div>
+        </div>
+        <div class="infoBox">
+            <div id="duree">Durée</div>
+        </div>
+    </div>
 </body>
 </html>

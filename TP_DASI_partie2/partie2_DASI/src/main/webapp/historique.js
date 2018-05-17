@@ -7,6 +7,7 @@
 
 $(document).ready(function () {
     getInfoClient();
+    recupererInfoEmploye();
 }); 
 
 function getInfoClient(){ 
@@ -26,6 +27,7 @@ function getInfoClient(){
         recupererListePrestations();
     });
 }
+
 function recupererListePrestations() {
     $.ajax({
         url:'./ActionServlet',
@@ -42,24 +44,46 @@ function recupererListePrestations() {
 };
 
 function remplirTableauHistorique(prestations){
-        for (var i = 0; i < prestations.length; i++){
-            ajouterPrestation(i, prestations[i]);
+        $('#date').after('<div>' + prestations[0].heureDebut + '</div>');
+        $('#medium').after('<div>' + prestations[0].mediumStr + '</div>');
+        $('#employe').after('<div>' + prestations[0].employeStr + '</div>');
+        $('#duree').after('<div>' + prestations[0].dureeStr + '</div>');
+        for (var i = 1; i < prestations.length; i++){
+            ajouterPrestation(prestations[i]);
         }  
+        $('.infoBox').children().css('margin', '10px');
 }
 
 // ATTENTION
 // TODO : Il faudra modifier la mise en forme une fois le css implémentée
 // Parcontre à quoi sert le compteur ici ?
 // C'est juste un oubli du au copier-coller ou il a une utilité ?
-function ajouterPrestation(compteur,prestation){
-     $('#tableauHistorique').append('<tr>'+
-            '<td>'+ prestation.heureDebut +'</td>'+
-            '<td>'+ prestation.mediumStr +'</td>'+
-            '<td>'+ prestation.employeStr +'</td>'+
-            '<td>'+ prestation.dureeStr +'</td>'+
-            '</tr>');
+function ajouterPrestation(prestation){
+     $('#date').siblings().last().after('<div>' + prestation.heureDebut + '</div>');
+     $('#medium').siblings().last().after('<div>' + prestation.mediumStr + '</div>');
+     $('#employe').siblings().last().after('<div>' + prestation.employeStr + '</div>');
+     $('#duree').siblings().last().after('<div>' + prestation.dureeStr + '</div>');
 }
 
 function remplirChampClient(client){
     $('#infoClient').html('Historique de '+client.prenom+' '+client.nom+' #'+client.id);
+}
+
+function recupererInfoEmploye( ) {
+    alert("recupInfoEmp");
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'RecupererInfoEmp'
+        },
+        dataType:'json'
+    })
+    .done(function(data){
+        remplirChampEmploye(data);
+    });
+};
+
+function remplirChampEmploye(data) {
+    $('.possibilite').prepend(data.nom);
 }

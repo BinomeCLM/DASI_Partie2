@@ -127,9 +127,9 @@ function activerCss() {
     $('.nommetier').css('flex-direction','row');
     $('.nommetier').css('justify-content','space-between');
     $('.nommetier').css('background-color','#E6E6FA');
-    $('.nommetier').css('border-radius','5px');
     $('.nommetier').css('padding-left','10px');
     $('.nommetier').css('padding-right','10px');
+    $('.nommetier').css('border-radius','5px');
     $('.nommetier').css('border-style','solid');
     $('.nommetier').css('border-color','grey');
     $('.nommetier').css('border-width','2px');

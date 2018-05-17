@@ -40,6 +40,14 @@ class ActionRecupInfoMedium extends Action {
                 Medium m = p.getMedium();  
                 request.setAttribute("medium",m);
             }  
+            else 
+            {
+                request.setAttribute("medium",null);
+            }
+        }
+        else
+        {
+            request.setAttribute("medium",null);
         }
     }
     

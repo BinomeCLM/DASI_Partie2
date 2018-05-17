@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17 mai 2018, 12:40:10
+    Author     : Chris
+*/
+
+h1 {
+    font-weight:lighter;
+}
+#tableauHistorique {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: space-between;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-between;
+    margin : 10px;
+    width: 15%;
+}
+
+#date, #medium, #duree, #employe {
+    font-weight:bold;
+    font-size: 1.5em;
+}
+

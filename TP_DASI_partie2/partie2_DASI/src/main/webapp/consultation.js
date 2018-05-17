@@ -5,6 +5,7 @@
  */
 $(document).ready(function () {
     recupererInfoClientPourConsultation();
+    recupererInfoEmploye();
     
     // ajout d'un "handler" sur le clic du bouton de Terminer la prestatoin
     $('#terminer').on('click', function () { 
@@ -40,7 +41,7 @@ function terminerConsultation() {
     })
     .done(function(data){
         alert(data);
-        //var t="true";
+        var t = true; 
         if (data){
             alert("L'onglet va se fermer");
             window.close();        
@@ -48,8 +49,6 @@ function terminerConsultation() {
             alert("error " + data);
             alert("error: StopPrest");
         }
-        // On retourne sur la demandeDeVoyance plutot non ?
-        // window.location = "consultation.html";
         window.location = "demandeDeVoyance.html";
         
     });
@@ -59,3 +58,21 @@ function remplirChampClient(data) {
     $('#infoClient').html(data.prenom + ' ' + data.nom + ' #' + data.id);
 }
 
+function recupererInfoEmploye( ) {
+    alert("recupInfoEmp");
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'RecupererInfoEmp'
+        },
+        dataType:'json'
+    })
+    .done(function(data){
+        remplirChampEmploye(data);
+    });
+};
+
+function remplirChampEmploye(data) {
+    $('.possibilite').prepend(data.nom);
+}

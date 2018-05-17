@@ -16,6 +16,10 @@ $(document).ready(function () {
     $('#demanderPrediction').on('click', function () {
         genererPrediction();
     });
+    /*
+    $(document).on('pageshow', function () {
+        window.locatoon.reload();
+    });*/
 });
 
 // Méthode permettant de connecter l'employé
@@ -51,7 +55,13 @@ function demarrerVoyance() {
     })
     .done(function(data){
         alert('demarrerVoyance');
-        openInNewTab("consultation.html");
+        if (data.id>0){
+            openInNewTab("consultation.html");
+        }
+        else {
+            alert('Aucun client pour le moment. Impossible de démarrer une voyance.');
+        }
+        
     });
 }
 
@@ -110,17 +120,26 @@ function recupererInfoEmploye( ) {
 };
 
 function remplirChampClient(data) {
-    var today = new Date();
-    var year = Number(data.dateDeNaissance.substr(6, 10)); 
-    var age = today.getFullYear() - year;
-    alert(year);
-    $('#infoClient').html(data.civilite + '. ' + data.prenom + ' ' + data.nom + ' | '
-            + age + 'ans | #' + data.id);
+    if (data.id > 0){
+        var today = new Date();
+        var year = Number(data.dateDeNaissance.substr(6, 10)); 
+        var age = today.getFullYear() - year;
+        alert(year);
+        $('#infoClient').html(data.civilite + '. ' + data.prenom + ' ' + data.nom + ' | '
+                + age + 'ans | #' + data.id);
+    }
+    else
+    {
+        $('#incfoClient').html('Aucun client pour le moment');
+        //$('#infoClient').css('display','hide');
+    }
 }
 
 function remplirChampMedium(data) {
-    $('#infoMedium').html('Médium demandé: ' + data.nom + ' | '
+    if (data.id>0){
+        $('#infoMedium').html('Médium demandé: ' + data.nom + ' | '
             + data.talent + ' | ');
+    }
     /*if (data.metier === 'Tarologue'){
         $('#infoMedium').append(data.cartes);
     } 
