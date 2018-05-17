@@ -37,6 +37,7 @@ function recupererListeMediums() {
         for (var i = 0; i < mediums.length; i++){
             ajouterListeMediums(i, mediums[i]);
         }
+        activerCss();
         activerBoutons(); // On place la fonction ici pour être sur 
         // que le boutons seront activés une fois qu'ils seront tous chargés
         // car comme c'est un appel asynchrone, si on le met ailleurs, on ne garantit
@@ -58,23 +59,23 @@ function ajouterListeMediums(compteur, data) {
     // C'était just epour tester et voir si ça marcher pour l'instant
     // Idée : mettre de balises div avec attributs ou classe si besoin
     // et dans le fichier css faire l'alignement grâce à des display ...
-    $('#voyants').append('<div id="prenomETmetier">'
-            +       '<div id="nom">' + data.nom + '</div>'
-            +       '<div id="metier">' + data.metier + '</div>'
-            +   '</div>'
-            +   '<div id="description">' + data.bio + '</div>');
+    $('#voyants').append('<div class="elemBox"><div class="nommetier">'
+            +       '<span class="nom">' + data.nom + '</span>'
+            +       '<span class="metier">' + data.metier + '</span>'
+            +   '</div></div>'
+            +   '<div class="elemBox"><div class="description">' + data.bio + '</div></div>');
     if (data.metier === 'Tarologue'){
-        $('div').last().after('<div id="Objet">Cartes : ' + data.cartes + '</div>'
-            +'<div><button type="button" id="' + data.id + '">Demander voyance</button></div>');
+        $('div').last().after('<div class="elemBox"><div class="cartes">Cartes : ' + data.cartes + '</div></div>'
+            +'<div class="elemBox"><button type="button" id="' + data.id + '">Demander voyance</button></div>');
     } 
     else if (data.metier === 'Astrologue') {
-        $('div').last().after('<div id="Objet">Ecole' + data.ecole + '</br>Promotion : ' + data.promotion + '</div>'
-            +'<div><button type="button" id="' + data.id + '">Demander voyance</button></div>');
+        $('div').last().after('<div class="elemBox"><div class="Objet">Ecole' + data.ecole + '</div><div>Promotion : ' + data.promotion + '</div></div>'
+            +'<div class="elemBox"><button type="button" id="' + data.id + '">Demander voyance</button></div>');
     }
     else {
-        $('div').last().after('<div id="Objet">Support : ' + data.support + '</div>'
+        $('div').last().after('<div class="elemBox"><div class="support">Support : ' + data.support + '</div></div>'
            
-            +'<div><button type="button" id="' + data.id + '">Demander voyance</button></div>');
+            +'<div class="elemBox"><button type="button" id="' + data.id + '">Demander voyance</button></div>');
     } 
 }
 
@@ -87,7 +88,6 @@ function activerBoutons() {
 }
 
 function demanderVoyance(identifiant) {
-    $('#traitementConnexion').html('Connexion en cours ...');
     $.ajax({
         url: './ActionServlet',
         type: 'POST',
@@ -99,10 +99,43 @@ function demanderVoyance(identifiant) {
     })
     .done(function (data) {
         alert(data);
-        if(data="true"){
+        if(data){
             window.location="attenteMedium.html";            
         }else{
             alert("Voyance n'a pas pu être demandé..");
         } 
     });
+}
+
+function activerCss() {
+    $('#voyants').css('display', 'flex');
+    $('#voyants').css('flex-direction', 'column');
+    $('#voyants').css('justify-content', 'space-around');
+    $('#voyants').css('align-items', 'center');
+    $('#voyants').css('align-content', 'space-around');
+    //$('#voyant').css('width', '60%');
+    //$('#voyants').css('background-color', 'blue');
+    $('.elemBox').css('display','flex');
+    //$('.elemBox').css('background-color', 'red');
+    $('.elemBox').css('flex-direction','column');
+    $('.elemBox').css('justify-content','flex-start');
+    $('.elemBox').css('align-items','strech');
+    $('.elemBox').css('align-content','strech');
+    $('.elemBox').css('width','50%');
+    $('.elemBox').css('margin-bottom','10px');
+    $('.nommetier').css('display','flex');
+    $('.nommetier').css('flex-direction','row');
+    $('.nommetier').css('justify-content','space-between');
+    $('.nommetier').css('background-color','#E6E6FA');
+    $('.nommetier').css('border-radius','5px');
+    $('.nommetier').css('padding-left','10px');
+    $('.nommetier').css('padding-right','10px');
+    $('.nommetier').css('border-style','solid');
+    $('.nommetier').css('border-color','grey');
+    $('.nommetier').css('border-width','2px');
+    $('.cartes').css('align-self', 'flex-start');
+    $('.support').css('align-self', 'flex-start');
+    $('description').css('align-self','flex-start');
+    $('button').css('width', '200%');
+    $('button').css('align-self', 'stretch');
 }

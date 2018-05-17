@@ -50,7 +50,7 @@ function recupererInfoClient() {
 
 function remplirChamp(data) {
     $('.possibilite').prepend(data.prenom + " " + data.nom + " ");
-    $('#prenom').html(data.prenom);
+    $('#prenom').append(" " + data.prenom);
     $('#signezodiaque').html(data.signeZodiaque);
     $('#signechinois').html(data.signeChinois);
     $('#couleur').html(data.couleur);

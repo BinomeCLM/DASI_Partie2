@@ -18,7 +18,26 @@ h1 {
     display: block;
 }
 
-#voyant {
-    text-align: center;
-    display: block;
+/*#voyant {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+    align-content: space-around;
+    width: 100%;
+    background-color:blue;
+}*/
+
+/*.elemBox {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items:stretch;
+    align-content:space-between;
+    margin: 10px;
+    width: 60%;
 }
+
+#cartes, #support, button {
+    align-self: flex-end;
+}*/

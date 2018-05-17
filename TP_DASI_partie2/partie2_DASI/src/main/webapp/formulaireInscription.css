@@ -28,11 +28,8 @@ form {
     display : flex;
     flex-direction: row;
     justify-content: space-between;
-    width:35%
-}
-
-select {
-    width: 49%;
+    width: 350px;
+    margin: 10px;
 }
 
 .elementForm:nth-child(8) {
