@@ -7,12 +7,34 @@
 
 $(document).ready(function () {
     // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
+    recupererInfoEmploye();
     afficherPrediction();
     
     $('#deconnexion').on('click', function () {
         seDeconnecter();
     });
 });
+
+function recupererInfoEmploye( ) {
+    alert("recupInfoEmp");
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'RecupererInfoEmp'
+        },
+        dataType:'json'
+    })
+    .done(function(data){
+        alert('On recupere les infos de lemploye');
+        remplirChampEmploye(data);
+    });
+};
+
+// Pour la navBar
+function remplirChampEmploye(data) {
+    $('.possibilite').prepend(data.nom);
+}
 
 function seDeconnecter(){
     $.ajax({
@@ -60,15 +82,14 @@ function afficherPrediction() {
     });
 };
 
-function rempirChampPrediction(data) {
-    $('infoEmp').html(data.nomEmploye);
-    $('client').html('Prédiction pour ' + data.prenomClient + ' ' + data.nomClient + ' #' + data.idClient);
-    $('amourResultat').html('Amour : (' + data.amourVal + '/5):');
-    $('amourString').html(data.amourStr);
-    $('santeResultat').html('Amour : (' + data.santeVal + '/5):');
-    $('santeString').html(data.santeStr);
-    $('travailResultat').html('Amour : (' + data.travailVal + '/5):');
-    $('travailString').html(data.travailStr);
+function remplirChampPrediction(data) {
+    $('#client').html('Prédiction pour ' + data.prenomClient + ' ' + data.nomClient + ' #' + data.idClient);
+    $('#amourResultat').html('Amour (' + data.amourVal + '/5):');
+    $('#amourString').html(data.amourStr);
+    $('#santeResultat').html('Sante (' + data.santeVal + '/5):');
+    $('#santeString').html(data.santeStr);
+    $('#travailResultat').html('Travail (' + data.travailVal + '/5):');
+    $('#travailString').html(data.travailStr);
 }
 
 function remplirChampClient(data) {

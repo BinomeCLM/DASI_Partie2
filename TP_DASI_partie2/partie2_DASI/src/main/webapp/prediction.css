@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 mai 2018, 18:53:45
+    Author     : Chris
+*/
+h1 {
+    font-weight: lighter;
+}
+
+#boxPrincipal {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    align-content: flex-start;
+}
+
+#boxPrincipal>* {
+    width: 50%;
+}
+
+#client {
+    text-align: center;
+}
+
+#amourString, #santeString, #travailString {
+    margin-bottom: 35px;
+}
+
+#amourResultat, #santeResultat, #travailResultat {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}

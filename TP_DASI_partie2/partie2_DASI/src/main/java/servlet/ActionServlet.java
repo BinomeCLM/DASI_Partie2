@@ -135,6 +135,13 @@ public class ActionServlet extends HttpServlet {
                     } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    
+                    Client leClientDeEmp = (Client) request.getAttribute("client");
+                    Client clientPresta = (Client) session.getAttribute("clientPresta");
+                    if (leClientDeEmp != null && clientPresta == null){
+                        session.setAttribute("clientPresta", leClientDeEmp);
+                    }
+                    
                     datajson.sendDataClient(request, response);
                 }
                 
@@ -251,10 +258,8 @@ public class ActionServlet extends HttpServlet {
 
                     if(p!=null)
                     {
-                        // je pense que je suis d'accord il faut garder la session 
-                        // parce-qu'on change de page (d'onglet)
                         session.setAttribute("prestation",p);
-                        session.setAttribute("clientPresta", p.getClient());
+                        
                     }
                     
                     datajson.sendDataPrestation(request, response);
@@ -286,7 +291,7 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "GenererPrediction":
-                if (session.getAttribute("idEmp") != null && session.getAttribute("prestation") != null){
+                if (session.getAttribute("idEmp") != null && session.getAttribute("clientPresta") != null){
                     ActionGenererPrediction agp = new ActionGenererPrediction(); 
                     agp.executeAction(request);
 

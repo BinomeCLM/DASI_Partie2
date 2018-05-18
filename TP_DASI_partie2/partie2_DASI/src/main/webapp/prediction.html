@@ -9,20 +9,26 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="prediction.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="prediction.js"></script>
     </head>
     <body>
-        <!-- Ici on récupére le nom de l'employé pour la navbar -->
-        <div id="infoEmp"></div>
+        <div class="wrapper">
+            <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
+            <div class="possibilite"> | <span id="deconnexion">Se déconnecter</span></div>
+        </div>
         
         <!-- Info client + infos sur la prédiction demandée -->
-        <div id="client"></div>
-        <div id="amourResultat"></div>
-        <div id="amourString"></div>
-        <div id="santeResultat"></div>
-        <div id="santeString"></div>
-        <div id="travailResultat"></div>
-        <div id="travailString"></div>
+        <div id="boxPrincipal">
+            <h1 id="client"></h1>
+            <div id="amourResultat"></div>
+            <div id="amourString"></div>
+            <div id="santeResultat"></div>
+            <div id="santeString"></div>
+            <div id="travailResultat"></div>
+            <div id="travailString"></div>
+        </div>
     </body>
 </html>
