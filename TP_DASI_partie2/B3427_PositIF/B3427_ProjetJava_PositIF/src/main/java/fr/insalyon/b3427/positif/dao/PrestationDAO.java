@@ -35,8 +35,7 @@ public class PrestationDAO {
     }
     public Prestation getPrestation(Employe emp){
         EntityManager em = JpaUtil.obtenirEntityManager();
-//        Query q = em.createQuery("select p from Prestation p where p.employe=:emp and p.heureDebut=null");
-        Query q = em.createQuery("select p from Prestation p where p.employe=:emp");
+        Query q = em.createQuery("select p from Prestation p where p.employe=:emp and p.heureDebut=null");
         q.setParameter("emp", emp);
         List results = q.getResultList();
         if(!results.isEmpty()){

@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 mai 2018, 15:53:58
+    Author     : Chris
+*/
+
+#flexPrincipal {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    align-content: space-between;
+    background-color : red;
+}
+
+#choixPage {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.highcharts-container {
+    max-width: 800px;
+    height: 400px;
+    margin: 1em auto;
+}
