@@ -8,8 +8,43 @@
 $(document).ready(function () {
     // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
     afficherPrediction();
+    
+    $('#deconnexion').on('click', function () {
+        seDeconnecter();
+    });
 });
 
+function seDeconnecter(){
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
+            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
+            // temps --> voir ActionServlet
+        },
+        dataType:'json'
+    })
+    .done(function(){
+        alert('deconnexion reussi');
+        // On redirige vers la page de connexion
+        window.location="connexion.html";
+    });
+}
+function recupererInfoClientPourConsultation() {
+    $.ajax({
+        url:'./ActionServlet', 
+        type:'POST',
+        data: {
+            action:'RecupererInfoClientPourConsultation'
+        },
+        dataType:'json'
+    })
+    .done(function(data){
+        alert(data);
+        remplirChampClient(data);
+    });
+};
 function afficherPrediction() {
     $.ajax({
         url:'./ActionServlet',
@@ -34,4 +69,8 @@ function rempirChampPrediction(data) {
     $('santeString').html(data.santeStr);
     $('travailResultat').html('Amour : (' + data.travailVal + '/5):');
     $('travailString').html(data.travailStr);
+}
+
+function remplirChampClient(data) {
+    $('#infoClient').html('Prediction pour ' + data.prenom + ' ' + data.nom + ' #' + data.id);
 }

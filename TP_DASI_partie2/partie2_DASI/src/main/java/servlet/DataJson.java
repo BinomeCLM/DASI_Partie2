@@ -246,7 +246,7 @@ public class DataJson {
             jsonMedium.addProperty("bio",m.getBio());
             jsonMedium.addProperty("metier", m.getClass().getSimpleName());
             jsonMedium.addProperty("id", m.getId());
-            
+            jsonMedium.addProperty("nbPresta", m.getNbPrestation());
             String classeFille = m.getClass().getSimpleName();
             if (classeFille.equals("Tarologue")) {
                 jsonMedium.addProperty("cartes", ((Tarologue)m).getCartes());
@@ -357,11 +357,7 @@ public class DataJson {
     void sendConfGenerationPred(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         
-        boolean etatPrediction = false;
-        
-        if (request.getAttribute("laPrediction") != null) {
-            etatPrediction = true;
-        }
+        boolean etatPrediction = (boolean) request.getAttribute("etatPred");
         System.out.println("debug GenererPred");
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
@@ -376,9 +372,9 @@ public class DataJson {
         JsonObject jsonPrediction = new JsonObject();
         
         List<String> donnees = (List<String>) request.getAttribute("dataPrediction");
-        int valAmour = (int) request.getAttribute("valeur");
-        int valSante = (int) request.getAttribute("santeVal");
-        int valTravail = (int) request.getAttribute("travailVal");
+        int valAmour = (int) request.getAttribute("valeuramour");
+        int valSante = (int) request.getAttribute("valeursante");
+        int valTravail = (int) request.getAttribute("valeurtravail");
         Client client = (Client) request.getAttribute("leClientPrediction");
         Employe emp = (Employe) request.getAttribute("employe");
         System.out.println(client + " pour prediction");
@@ -403,6 +399,46 @@ public class DataJson {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         out.println(gson.toJson(jsonPrediction));
+        out.close();
+    }
+
+    void sendListeEmploye(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        PrintWriter out = response.getWriter();
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        
+        JsonObject container = new JsonObject();
+        JsonArray jsonListe = new JsonArray();
+        
+        List<Employe> listeEmploye = (List<Employe>) request.getAttribute("listeEmp");
+
+        for (Employe e : listeEmploye) {
+                JsonObject jsonEmploye = new JsonObject();
+
+                jsonEmploye.addProperty("id",e.getId());
+                jsonEmploye.addProperty("nom",e.getNomEmploye());
+                jsonEmploye.addProperty("nbPresta",e.getNbPrestation()); 
+            
+                jsonListe.add(jsonEmploye);
+        }
+    
+        container.add("employes", jsonListe);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.println(gson.toJson(container));
+        out.close();
+    }
+
+    void sendDeconnexionEtat(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
+        jo.addProperty("deconnexion", 1);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.println(gson.toJson(jo));
         out.close();
     }
 }

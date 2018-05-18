@@ -26,14 +26,15 @@ class ActionObtenirPrediction extends Action {
         
         HttpSession session = request.getSession();
         List<String> dataPrediction = (List<String>) session.getAttribute("prediction");
-        Long id = (Long) session.getAttribute("idEmp");
+        Long idEmp = (Long) session.getAttribute("idEmp");
+        Client cl = (Client) session.getAttribute("clientPresta");
         int amourVal = (int) session.getAttribute("valeuramour");
         int santeVal = (int) session.getAttribute("valeursante");
         int travailVal = (int) session.getAttribute("valeurtravail");
         
         EmployeService empServ = new EmployeService();
-        Client cl = empServ.getClient(id);
-        Employe emp = empServ.getEmploye(id);
+        //Client cl = empServ.getClient(id);
+        Employe emp = empServ.getEmploye(idEmp);
         
         request.setAttribute("dataPrediction", dataPrediction);
         request.setAttribute("leClientPrediction", cl);

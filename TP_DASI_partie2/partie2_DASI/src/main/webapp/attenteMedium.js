@@ -7,7 +7,29 @@
 
 $(document).ready(function () {
     recupererInfoClient();
+    
+    $('#deconnexion').on('click', function () {
+        seDeconnecter();
+    });
 }); 
+
+function seDeconnecter(){
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
+            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
+            // temps --> voir ActionServlet
+        },
+        dataType:'json'
+    })
+    .done(function(){
+        alert('deconnexion reussi');
+        // On redirige vers la page de connexion
+        window.location="connexion.html";
+    });
+}
 
 function recupererInfoClient() {
     $.ajax({

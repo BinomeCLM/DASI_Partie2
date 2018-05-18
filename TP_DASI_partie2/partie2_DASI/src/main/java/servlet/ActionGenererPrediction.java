@@ -33,19 +33,23 @@ class ActionGenererPrediction extends Action{
         EmployeService empServ = new EmployeService();
         Employe emp = empServ.getEmploye(id);
         // attention récupérer la prestation puis le client !!!
-        Prestation prestation = empServ.getWaitingPrestation(emp);
+        //Prestation prestation = empServ.getWaitingPrestation(emp);
+        Prestation prestation = (Prestation) session.getAttribute("prestation");
         // A partir de la prestation, on récupére le client qui la demande
         Client cl = null;
         if (prestation != null){
             cl = prestation.getClient();
-        }
-        System.out.println(cl);
-        List<String> laPrediction = empServ.getPrediction(cl, amour, sante, travail);
+            List<String> laPrediction = empServ.getPrediction(cl, amour, sante, travail);
         
-        request.setAttribute("laPrediction", laPrediction);
-        request.setAttribute("valeursante", sante);
-        request.setAttribute("valeuramour", amour);
-        request.setAttribute("valeurtravail", travail);
+            request.setAttribute("laPrediction", laPrediction);
+            request.setAttribute("valeursante", sante);
+            request.setAttribute("valeuramour", amour);
+            request.setAttribute("valeurtravail", travail);
+        }
+        else {
+            
+        }
+        
     }
     
 }

@@ -12,13 +12,14 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="navbar.css"/>
         <link rel="stylesheet" type="text/css" href="tableauDeBord.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
+        
         <script src="tableauDeBord.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="logo"><!--<img src="postif.jpg" alt="logo du site"/>--></div>
-            <div class="possibilite"> | <a href="connexion.html"><span id="deconnexion">Se déconnecter</span></a></div>
+            <div class="possibilite"> | <span id="deconnexion">Se déconnecter</span></div>
         </div>
         <div id="choixPage">
             <a id="demandeVoyance" href="demandeDeVoyance.html">Demande de voyance</a>
@@ -26,11 +27,8 @@ and open the template in the editor.
         </div>
         <h1>Tableau de bord</h1>
         <div id="flexPrincipal">
-            <p>Total de voyances demandées par médium</p>
-            <div id="resNbVoyMed" class="highcharts-container"></div>
-            <p>Total de voyances réalisées par employé</p>
-            <div id="resNbVoyEmp" class="highcharts-container"></div>
-            <p>Répartition des voyances entre employé</p>
+            <div id="Medium"></div>
+            <div id="Employe" class="highcharts-container"></div>
             <div id="resNbVoyEntreEmp"></div>
         </div>
     </body>

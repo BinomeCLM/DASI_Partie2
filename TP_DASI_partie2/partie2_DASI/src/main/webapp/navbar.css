@@ -55,3 +55,9 @@ h1 {
 p {
     text-align: center;
 }
+
+#deconnexion {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

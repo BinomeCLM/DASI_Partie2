@@ -27,26 +27,28 @@ public class ActionStopPrestation extends Action {
         
         HttpSession session = request.getSession();
         Long idEmp =  (Long) (session.getAttribute("idEmp")); 
-        //Prestation laPresta = (Prestation) (session.getAttribute("prestation"));
+        Prestation laPresta = (Prestation) (session.getAttribute("prestation"));
         System.out.println("id :" + idEmp);
         EmployeService empServ = new EmployeService();
         
         Employe emp = empServ.getEmploye(idEmp);
         System.out.println ("emp " + emp);
-        Prestation p = empServ.getWaitingPrestation(emp);
-        System.out.println("prestation  " + p);
-        if (p!=null){
-            empServ.stopPrestation(p);
+        //Prestation p = empServ.getWaitingPrestation(emp);
+        System.out.println("prestation  " + laPresta);
+        if (laPresta!=null){
+            empServ.stopPrestation(laPresta);
             System.out.println("laPresta terminé");
-            Prestation pFinish = empServ.getWaitingPrestation(emp);
-            if (pFinish == null){
+            //Prestation pFinish = empServ.getWaitingPrestation(emp);
+            /*if (pFinish == null){
                 request.setAttribute("success", true);
                 System.out.println(true);
             }
             else {
                 request.setAttribute("success", false);
                 System.out.println(false);
-            }
+            }*/
+            request.setAttribute("success", true);
+            System.out.println(true);
         }
         else 
         {

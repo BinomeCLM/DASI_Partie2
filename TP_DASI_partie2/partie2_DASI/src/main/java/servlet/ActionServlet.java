@@ -286,7 +286,7 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "GenererPrediction":
-                if (session.getAttribute("idEmp") != null){
+                if (session.getAttribute("idEmp") != null && session.getAttribute("prestation") != null){
                     ActionGenererPrediction agp = new ActionGenererPrediction(); 
                     agp.executeAction(request);
 
@@ -296,9 +296,15 @@ public class ActionServlet extends HttpServlet {
                     session.setAttribute("valeuramour", (int) request.getAttribute("valeuramour"));
                     session.setAttribute("valeursante", (int) request.getAttribute("valeursante"));
                     session.setAttribute("valeurtravail", (int) request.getAttribute("valeurtravail"));
-                       
-                    datajson.sendConfGenerationPred(request, response);
+                      
+                    request.setAttribute("etatPred", true);
                 }
+                else 
+                {
+                    request.setAttribute("etatPred", false);
+                }
+                
+                datajson.sendConfGenerationPred(request, response);
                 
                 break;
             
@@ -317,6 +323,31 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "ObtenirListeEmploye":
+                if (session.getAttribute("idEmp") != null){
+                    ActionObtenirListeEmp aole = new ActionObtenirListeEmp(); 
+                    try {
+                        aole.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    datajson.sendListeEmploye(request, response);
+                }
+                
+                break;
+                
+            case "ObtenirListeMediums":
+                if (session.getAttribute("idEmp") != null) {
+                    ActionRecupListeMed arlm = new ActionRecupListeMed();
+                    
+                    try {
+                        arlm.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    datajson.sendListeMed(request, response);
+                }
                 break;
                 
             case "Deconnecter":
@@ -325,6 +356,7 @@ public class ActionServlet extends HttpServlet {
                 session.invalidate();
                 // Est-ce qu'on envoie un booleen pour le succés même si la on est sur que 
                 // dans tout les cas la session s'est bien terminée ?
+                datajson.sendDeconnexionEtat(request, response);
                 
                 break;
                 

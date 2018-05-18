@@ -16,12 +16,28 @@ $(document).ready(function () {
     $('#demanderPrediction').on('click', function () {
         genererPrediction();
     });
-    /*
-    $(document).on('pageshow', function () {
-        window.locatoon.reload();
-    });*/
+    $('#deconnexion').on('click', function () {
+        seDeconnecter();
+    });
 });
 
+function seDeconnecter(){
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
+            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
+            // temps --> voir ActionServlet
+        },
+        dataType:'json'
+    })
+    .done(function(){
+        alert('deconnexion reussi');
+        // On redirige vers la page de connexion
+        window.location="connexion.html";
+    });
+}
 // Méthode permettant de connecter l'employé
 // On le fait ici parce-qu'ils n'ont pas fait de service connecterEmploye
 // donc on le simule ...
@@ -167,7 +183,7 @@ function genererPrediction () {
             sante: $('#sante').val(),
             travail: $('#travail').val()
         },
-        dataType:'json'
+        dataType:'text'
     })
     .done(function(data){
         alert(data);

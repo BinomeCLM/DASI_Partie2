@@ -13,7 +13,47 @@ $(document).ready(function () {
         console.log('Click sur le bouton "Terminer consultation!"');
         terminerConsultation();
     });
+    
+    $('#deconnexion').on('click', function () {
+        seDeconnecter();
+    });
 });
+
+function seDeconnecter(){
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
+            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
+            // temps --> voir ActionServlet
+        },
+        dataType:'json'
+    })
+    .done(function(){
+        alert('deconnexion reussi');
+        // On redirige vers la page de connexion
+        window.location="connexion.html";
+    });
+}
+
+function seDeconnecter(){
+    $.ajax({
+        url:'./ActionServlet',
+        type:'POST',
+        data: {
+            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
+            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
+            // temps --> voir ActionServlet
+        },
+        dataType:'json'
+    })
+    .done(function(){
+        alert('deconnexion reussi');
+        // On redirige vers la page de connexion
+        window.location="connexion.html";
+    });
+}
 
 function recupererInfoClientPourConsultation() {
     $.ajax({
@@ -41,15 +81,14 @@ function terminerConsultation() {
     })
     .done(function(data){
         alert(data);
-        var t = true; 
-        if (data){
+        if (data == "true"){
             alert("L'onglet va se fermer");
             window.close();        
         }else{
             alert("error " + data);
             alert("error: StopPrest");
         }
-        window.location = "demandeDeVoyance.html";
+        //window.location = "demandeDeVoyance.html";
         
     });
 }
