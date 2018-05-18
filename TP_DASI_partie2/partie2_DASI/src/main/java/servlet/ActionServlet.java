@@ -122,7 +122,9 @@ public class ActionServlet extends HttpServlet {
                     // Faire tout sa dans la classe de formatage (passer en parametre request et response
                     datajson.sendDataClient(request, response);
                 }
-                
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 break;
              
             case "RecupererInfoClientPourEmp" :

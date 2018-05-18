@@ -6,7 +6,9 @@
 
 
 $(document).ready(function () {
+    
     recupererInfoClient();
+    
     //desactiverLien();
     $('#deconnexion').on('click', function () {
         seDeconnecter();
@@ -45,6 +47,10 @@ function recupererInfoClient() {
         if (data.id >= 0){
             remplirChamp(data);
         }// Faire le else si jamais le client n'avait pas d'information ( ne devrait pas être possible normalement)
+        else {
+            alert('redirection car pas de profil');
+            window.location = "connexion.html";
+        }
     });
 };
 

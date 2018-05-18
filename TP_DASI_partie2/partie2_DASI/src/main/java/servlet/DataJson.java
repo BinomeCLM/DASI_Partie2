@@ -72,7 +72,21 @@ public class DataJson {
         
         out.close();
     }
-
+    
+    public void sendDataRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        PrintWriter out = response.getWriter();
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jsonClient = new JsonObject();
+        
+        jsonClient.addProperty("id", -1);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.println(gson.toJson(jsonClient));
+        out.close();
+    }
+    
     public void sendDataClient(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
         PrintWriter out = response.getWriter();
