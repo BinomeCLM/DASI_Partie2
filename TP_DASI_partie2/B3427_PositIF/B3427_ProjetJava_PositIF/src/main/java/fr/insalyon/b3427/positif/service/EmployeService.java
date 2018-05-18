@@ -73,14 +73,17 @@ public class EmployeService {
     }
     public void stopPrestation(Prestation pres){
         pres.setHeureFin(new Date());
-        pres.getEmploye().setBusy(false);
+        Employe emp = pres.getEmploye();
+        emp.setBusy(false);
         
+        EmployeDAO empDAO = new EmployeDAO();
         PrestationDAO prestationDAO = new PrestationDAO();
         
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         
         prestationDAO.merge(pres);
+        empDAO.merge(emp);
         
         JpaUtil.validerTransaction();
         JpaUtil.fermerEntityManager();
