@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public abstract class Action {
-    // Voir page 37 pour request seulement et module sérialisation des données
     public abstract void executeAction (HttpServletRequest request)
             throws ServletException, IOException, ParseException;
 }

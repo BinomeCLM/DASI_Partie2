@@ -28,6 +28,7 @@ public class ActionStartPrestation extends Action {
         
         EmployeService empServ = new EmployeService();
         Employe emp = empServ.getEmploye(id);
+        
         if(emp != null)
         {
             Prestation p = empServ.getWaitingPrestation(emp);

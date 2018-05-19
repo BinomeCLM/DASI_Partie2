@@ -28,10 +28,6 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ActionServlet", urlPatterns = {"/ActionServlet"})
 public class ActionServlet extends HttpServlet {
-
-    
-    // surcharger une methode init et une methode destroy
-    // c'est implementé, pas besoin de s'en charger
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,13 +40,10 @@ public class ActionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //request.setCharacterEncoding("UTF-8");
         String todo = request.getParameter("action");
-        if(todo==null)todo="default";
         
         DataJson datajson = new DataJson();
-        HttpSession session = request.getSession(true); // Ici on crée une session même s'il n'est pas connecté
-        // C'est une solution qui marche mais pas forcément la plus efficace (dépend de l'application de notre site)
+        HttpSession session = request.getSession(true); 
         
         switch (todo) {
             
@@ -65,12 +58,8 @@ public class ActionServlet extends HttpServlet {
                 datajson.sendInscriEtat(request, response);
                 
                 break;
-            
-                // J'ai modifié le nom pour distinguer la connexion d'un client
-                // et celle d'un employé
+                
             case "ConnexionClient":
-                // Au moment de la connexion qu'on crée la session parce-qu'au moment de l'inscription on doit 
-                // quand même se connecter ensuite
                 ActionConnexion ac = new ActionConnexion();
                 try {
                     ac.executeAction(request);
@@ -78,7 +67,6 @@ public class ActionServlet extends HttpServlet {
                     Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                // A voir si on peut ameliorer car dans DataJson je fais aussi un request.getAttribute pareil
                 Client cl = (Client) request.getAttribute("client");
                 if (cl != null){
                     session.setAttribute("idClient", cl.getId());
@@ -97,11 +85,9 @@ public class ActionServlet extends HttpServlet {
                     Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                // A voir si on peut ameliorer car dans DataJson je fais aussi un request.getAttribute pareil
                 Employe emp = (Employe) request.getAttribute("employe");
                 if (emp != null){
                     session.setAttribute("idEmp", emp.getId());
-                    System.out.println("idEmp = " + session.getAttribute("idEmp"));
                 }
                 
                 datajson.sendEtatConnexionEmploye(request,response);
@@ -109,22 +95,22 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "RecupererInfoClient":
+                
                 if (session.getAttribute("idClient") != null){
                     ActionRecupInfoClient aric = new ActionRecupInfoClient();
-                    // pour rendre plus robuste vérifier qu'on est connecté if session.getid != null
-                    // Coté front des paramètre en ajax que quand il y a de la saisie
 
                     try {
                         aric.executeAction(request);
                     } catch (ParseException ex) {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    // Faire tout sa dans la classe de formatage (passer en parametre request et response
+                    
                     datajson.sendDataClient(request, response);
                 }
                 else {
                     datajson.sendDataRedirection(request, response);
                 }
+                
                 break;
              
             case "RecupererInfoClientPourEmp" :
@@ -144,10 +130,14 @@ public class ActionServlet extends HttpServlet {
                     
                     datajson.sendDataClient(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "RecupererInfoClientPourConsultation" :
+                
                 if (session.getAttribute("idEmp") != null){
                     ActionRecupInfoClientPourConsultation aricpc = new ActionRecupInfoClientPourConsultation();
                     try {
@@ -155,7 +145,11 @@ public class ActionServlet extends HttpServlet {
                     } catch (ParseException ex) {
                             Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex); 
                     }
+                    
                     datajson.sendDataClient(request, response);
+                }
+                else {
+                    datajson.sendDataRedirection(request, response);
                 }
                 
                 break;
@@ -170,23 +164,32 @@ public class ActionServlet extends HttpServlet {
                     }
                     datajson.sendDataEmploye(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "RecupererInfoPrestation" :
-                ActionRecupInfoPrestation arip = new ActionRecupInfoPrestation();
-                try {
-                    arip.executeAction(request);
-             
-                } catch (ParseException ex) {
-                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                if (session.getAttribute("idEmp") != null){
+                    ActionRecupInfoPrestation arip = new ActionRecupInfoPrestation();
+                    try {
+                        arip.executeAction(request);
+
+                    } catch (ParseException ex) {
+                            Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 
-                datajson.sendDataPrestation(request, response);
+                    datajson.sendDataPrestation(request, response);
+                }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "RecupererInfoMedium" :
+                
                 if (session.getAttribute("idEmp") != null){
                     ActionRecupInfoMedium arim = new ActionRecupInfoMedium();
                     try {
@@ -198,10 +201,14 @@ public class ActionServlet extends HttpServlet {
 
                     datajson.sendDataMedium(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "RecupererListeMediums":
+                
                 if (session.getAttribute("idClient") != null) {
                     ActionRecupListeMed arlm = new ActionRecupListeMed();
                     
@@ -213,9 +220,14 @@ public class ActionServlet extends HttpServlet {
                     
                     datajson.sendListeMed(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
+                
                 break;
                 
             case "RecupererListePrestations":
+                
                 if (session.getAttribute("idEmp") != null){
 
                     ActionRecupListePrest arlp = new ActionRecupListePrest();
@@ -226,10 +238,14 @@ public class ActionServlet extends HttpServlet {
                     }
                     datajson.sendListePrest(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "DemanderVoyance":
+                
                 if (session.getAttribute("idClient") != null) {
                     ActionDemanderVoyance adv = new ActionDemanderVoyance();
                     
@@ -240,11 +256,15 @@ public class ActionServlet extends HttpServlet {
                     }
                     
                     datajson.sendConfVoyance(request, response);
-                    
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
+                
                 break;
             
             case "StartPrestation"  :
+                
                 if (session.getAttribute("idEmp") != null){
                     ActionStartPrestation asp = new ActionStartPrestation();
                     try {
@@ -255,21 +275,21 @@ public class ActionServlet extends HttpServlet {
 
                     Prestation p = (Prestation)request.getAttribute("prestation");
                     
-
                     if(p!=null)
                     {
                         session.setAttribute("prestation",p);
-                        
                     }
                     
                     datajson.sendDataPrestation(request, response);
+                }
+                else {
+                    datajson.sendDataRedirection(request, response);
                 }
                 
                 break;
 
             case "StopPrestation":
-                // Vérification qu'il y est bien une prestation en cours d'ou
-                // l'utilité de garder l'idPresta dans la session
+                
                 if (session.getAttribute("prestation") != null){
                     ActionStopPrestation astopp = new ActionStopPrestation(); 
                     try {
@@ -278,8 +298,6 @@ public class ActionServlet extends HttpServlet {
                         Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    // Si la prestation a bien été arreter, on enleve les attributs
-                    // inutile de la session de l'employé
                     if ((boolean) request.getAttribute("success")){
                         session.removeAttribute("prestation");
                         session.removeAttribute("clientPresta");
@@ -287,17 +305,19 @@ public class ActionServlet extends HttpServlet {
                     
                     datajson.sendInscriStopPrest(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "GenererPrediction":
+                
                 if (session.getAttribute("idEmp") != null && session.getAttribute("clientPresta") != null){
                     ActionGenererPrediction agp = new ActionGenererPrediction(); 
                     agp.executeAction(request);
 
-                    // Ici je pense qu'on est obligé car on change de page pour afficher les prédictions
                     session.setAttribute("prediction", request.getAttribute("laPrediction"));
-                    
                     session.setAttribute("valeuramour", (int) request.getAttribute("valeuramour"));
                     session.setAttribute("valeursante", (int) request.getAttribute("valeursante"));
                     session.setAttribute("valeurtravail", (int) request.getAttribute("valeurtravail"));
@@ -314,6 +334,7 @@ public class ActionServlet extends HttpServlet {
                 break;
             
             case "ObtenirPrediction":
+                
                 if (session.getAttribute("idEmp") != null){
                     ActionObtenirPrediction aop = new ActionObtenirPrediction(); 
                     try {
@@ -324,10 +345,14 @@ public class ActionServlet extends HttpServlet {
 
                     datajson.sendPrediction(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "ObtenirListeEmploye":
+                
                 if (session.getAttribute("idEmp") != null){
                     ActionObtenirListeEmp aole = new ActionObtenirListeEmp(); 
                     try {
@@ -338,10 +363,14 @@ public class ActionServlet extends HttpServlet {
 
                     datajson.sendListeEmploye(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 
             case "ObtenirListeMediums":
+                
                 if (session.getAttribute("idEmp") != null) {
                     ActionRecupListeMed arlm = new ActionRecupListeMed();
                     
@@ -353,15 +382,28 @@ public class ActionServlet extends HttpServlet {
                     
                     datajson.sendListeMed(request, response);
                 }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
+                
                 break;
                 
             case "Deconnecter":
-                // Est-ce qu'on doit faire une action juste pour ça ? A voir avec le professeur
-                // Y-a-t'il autre chose à faire pour se déconnecter ? 
-                session.invalidate();
-                // Est-ce qu'on envoie un booleen pour le succés même si la on est sur que 
-                // dans tout les cas la session s'est bien terminée ?
-                datajson.sendDeconnexionEtat(request, response);
+                
+                if (session.getAttribute("idEmp") != null || session.getAttribute("idClient") != null) {
+                    ActionDeconnexion ad = new ActionDeconnexion();
+                    
+                    try {
+                        ad.executeAction(request);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    datajson.sendDeconnexionEtat(request, response);
+                }
+                else {
+                    datajson.sendDataRedirection(request, response);
+                }
                 
                 break;
                 

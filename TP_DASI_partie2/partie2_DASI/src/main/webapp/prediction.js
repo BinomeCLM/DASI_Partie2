@@ -6,9 +6,8 @@
 
 
 $(document).ready(function () {
-    // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
+    
     recupererInfoEmploye();
-    afficherPrediction();
     
     $('#deconnexion').on('click', function () {
         seDeconnecter();
@@ -16,7 +15,6 @@ $(document).ready(function () {
 });
 
 function recupererInfoEmploye( ) {
-    alert("recupInfoEmp");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -26,12 +24,17 @@ function recupererInfoEmploye( ) {
         dataType:'json'
     })
     .done(function(data){
-        alert('On recupere les infos de lemploye');
-        remplirChampEmploye(data);
+        if (data.id > 0) {
+            remplirChampEmploye(data);
+            afficherPrediction();
+        }
+        else {
+            alert('Vous allez être redirigé vers la page de connexion. En effet, vous ne vous êtes pas identifié.');
+            window.location = "connexion.html";
+        }
     });
 };
 
-// Pour la navBar
 function remplirChampEmploye(data) {
     $('.possibilite').prepend(data.nom);
 }
@@ -41,32 +44,15 @@ function seDeconnecter(){
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
-            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
-            // temps --> voir ActionServlet
+            action:'Deconnecter' 
         },
         dataType:'json'
     })
     .done(function(){
-        alert('deconnexion reussi');
-        // On redirige vers la page de connexion
         window.location="connexion.html";
     });
 }
-function recupererInfoClientPourConsultation() {
-    $.ajax({
-        url:'./ActionServlet', 
-        type:'POST',
-        data: {
-            action:'RecupererInfoClientPourConsultation'
-        },
-        dataType:'json'
-    })
-    .done(function(data){
-        alert(data);
-        remplirChampClient(data);
-    });
-};
+
 function afficherPrediction() {
     $.ajax({
         url:'./ActionServlet',
@@ -77,8 +63,13 @@ function afficherPrediction() {
         dataType:'json'
     })
     .done(function(data){
-        alert('affichage des prédictions');
-        remplirChampPrediction(data);
+        if (data.idClient > 0){
+            remplirChampPrediction(data);
+        }
+        else {
+            alert('erreur lors de la génération des prédictions.');
+            window.location='demandeDeVoyance.html';
+        }
     });
 };
 
@@ -92,6 +83,3 @@ function remplirChampPrediction(data) {
     $('#travailString').html(data.travailStr);
 }
 
-function remplirChampClient(data) {
-    $('#infoClient').html('Prediction pour ' + data.prenom + ' ' + data.nom + ' #' + data.id);
-}

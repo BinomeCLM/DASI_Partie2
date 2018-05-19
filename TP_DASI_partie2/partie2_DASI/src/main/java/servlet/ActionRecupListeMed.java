@@ -25,9 +25,8 @@ public class ActionRecupListeMed extends Action {
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         ClientService clServ = new ClientService();
-        
         List<Medium> listeMedium = clServ.getListMedium();
-        //System.out.println(listeMedium.get(0));
+        
         request.setAttribute("listeMedium", listeMedium);
     }
     

@@ -38,7 +38,5 @@ public class ActionRecupInfoPrestation extends Action {
                 request.setAttribute("prestation",p);
             }  
         }
-
-    
     }
 }

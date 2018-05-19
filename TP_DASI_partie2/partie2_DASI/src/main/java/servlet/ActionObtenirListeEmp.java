@@ -22,6 +22,7 @@ class ActionObtenirListeEmp extends Action {
 
     @Override
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
+        
         HttpSession session = request.getSession();
         Long id = (Long) session.getAttribute("idEmp");
         

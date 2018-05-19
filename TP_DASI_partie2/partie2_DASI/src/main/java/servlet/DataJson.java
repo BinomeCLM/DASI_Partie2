@@ -33,26 +33,32 @@ public class DataJson {
     public void sendInscriEtat(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
         PrintWriter out = response.getWriter();
-        System.out.println("1: ");
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
+        
         boolean success = (boolean) request.getAttribute("success");
-        System.out.println("2: " + success);
-        response.setContentType("text/html");
+        jo.addProperty("success", success);
+        
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.println(success);
+        out.println(gson.toJson(jo));
         out.close();
     }
     
-    // A modifier dans le sens ou c'est ligne pour ligne le même code
-    // que la méthode précédente : sendInscriEtat
     public void sendInscriStopPrest(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
         PrintWriter out = response.getWriter();
         
-        boolean success = (boolean) request.getAttribute("success");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
         
-        response.setContentType("text/html");
+        boolean success = (boolean) request.getAttribute("success");
+        jo.addProperty("success", success);
+        
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(success); 
+        out.println(gson.toJson(jo));
         out.close();
     }
     
@@ -66,14 +72,20 @@ public class DataJson {
             etatConnexion = true;
         }
         
-        response.setContentType("text/html");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
+        
+        jo.addProperty("success", etatConnexion);
+        
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(etatConnexion);
+        out.print(gson.toJson(jo));
         
         out.close();
     }
     
     public void sendDataRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        
         PrintWriter out = response.getWriter();
         
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -84,6 +96,7 @@ public class DataJson {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         out.println(gson.toJson(jsonClient));
+        
         out.close();
     }
     
@@ -114,9 +127,6 @@ public class DataJson {
             jsonClient.addProperty("animalTotem", cl.getAnimalTotem());
         }
         else {
-            // Idée : mettre une propriété id inférieure à 0 comme ça on
-            // ne fait qu'une fois la vérification que le client est null
-            // et pas dans le actionservlet et dans le datajson
             jsonClient.addProperty("id", -1);
         }
         
@@ -151,7 +161,6 @@ public class DataJson {
         response.setCharacterEncoding("UTF-8");
         out.println(gson.toJson(jsonEmploye));
         out.close();
-        
     }
     
     public void sendDataPrestation(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -179,7 +188,6 @@ public class DataJson {
             jsonPrestation.addProperty("medium", (pr.getMedium()).getId());
         }
         else {
-            // TODO : Modifier
             jsonPrestation.addProperty("id", -1);
         }
         
@@ -217,7 +225,6 @@ public class DataJson {
                 jsonMedium.addProperty("support", ((Voyant)m).getSupport());
             }
         } else {
-            // TODO : à modifier
             jsonMedium.addProperty("id", -1);
         }
         
@@ -282,7 +289,6 @@ public class DataJson {
         List<Prestation> listePrestation = (List<Prestation>) request.getAttribute("listePrestation");
 
         for (Prestation p : listePrestation) {
-            // Doit-on afficher les prestations non terminées ?
             if (p.getHeureFin() != null){
                 JsonObject jsonPrestation = new JsonObject();
 
@@ -290,17 +296,11 @@ public class DataJson {
                 jsonPrestation.addProperty("idClient",p.getClient().getId());
                 jsonPrestation.addProperty("idEmploye",p.getEmploye().getId());
                 jsonPrestation.addProperty("idMedium",p.getMedium().getId());
-                // Ici personnellement je le ferais en plusieurs fois pour les differentes str
-                // et je ferai la concaténation dans le javascript
-                // a voir ensemble si on laisse comme ça ou si on change
                 jsonPrestation.addProperty("mediumStr",p.getMedium().getNom()+" ("+p.getMedium().getTalent()+")");
                 jsonPrestation.addProperty("employeStr",p.getEmploye().getNomEmploye()); 
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
 
-                // Côté IHM, je crois qu'il faut que l'heure de debut
-                // l'heure de fin sert seulement à calculer la durée
-                // ce qui est fait juste en dessous
                 jsonPrestation.addProperty("heureDebut", sdf.format(p.getHeureDebut()));
                 jsonPrestation.addProperty("heureFin", sdf.format(p.getHeureFin()));
 
@@ -325,16 +325,19 @@ public class DataJson {
     }
 
     void sendConfVoyance(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         PrintWriter out = response.getWriter();
         
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
+        
         boolean etatDemande = (boolean) request.getAttribute("etatDemande");
+        jo.addProperty("success", etatDemande);
         
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(etatDemande); 
+        out.println(gson.toJson(jo));
         out.close();
-        
     }
 
     void sendEtatConnexionEmploye(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -347,9 +350,14 @@ public class DataJson {
             etatConnexion = true;
         }
         
-        response.setContentType("text/html");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
+        
+        jo.addProperty("success", etatConnexion);
+        
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(etatConnexion);
+        out.print(gson.toJson(jo));
         
         out.close();
     }
@@ -357,11 +365,15 @@ public class DataJson {
     void sendConfGenerationPred(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jo = new JsonObject();
+        
         boolean etatPrediction = (boolean) request.getAttribute("etatPred");
-        System.out.println("debug GenererPred");
-        response.setContentType("text/html");
+        jo.addProperty("success", etatPrediction);
+        
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        out.print(etatPrediction); 
+        out.println(gson.toJson(jo));
         out.close();
     }
 
@@ -393,7 +405,7 @@ public class DataJson {
             jsonPrediction.addProperty("nomClient", client.getNom());
             jsonPrediction.addProperty("nomEmploye", emp.getNomEmploye());
         } else {
-            // TODO : à modifier
+            jsonPrediction.addProperty("idClient", -1);
         }
         
         response.setContentType("application/json");
@@ -433,9 +445,12 @@ public class DataJson {
 
     void sendDeconnexionEtat(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
+        
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jo = new JsonObject();
+        
         jo.addProperty("deconnexion", 1);
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         out.println(gson.toJson(jo));

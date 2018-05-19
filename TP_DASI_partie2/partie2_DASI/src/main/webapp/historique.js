@@ -6,7 +6,7 @@
  
 
 $(document).ready(function () {
-    getInfoClient();
+    
     recupererInfoEmploye();
     
     $('#deconnexion').on('click', function () {
@@ -19,15 +19,11 @@ function seDeconnecter(){
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
-            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
-            // temps --> voir ActionServlet
+            action:'Deconnecter' 
         },
         dataType:'json'
     })
     .done(function(){
-        alert('deconnexion reussi');
-        // On redirige vers la page de connexion
         window.location="connexion.html";
     });
 }
@@ -42,10 +38,7 @@ function getInfoClient(){
         dataType:'json'
     })
     .done(function(data){
-        alert('remplirChampClient');
         remplirChampClient(data);
-        // Pourquoi le fait-on a ce moment la (récupérer la liste des prestations ?)
-        // C'est l'historique du client ou de l'employé --> A vérifier
         recupererListePrestations();
     });
 }
@@ -60,7 +53,6 @@ function recupererListePrestations() {
         dataType:'json'
     })
     .done(function(data){
-        alert('remplirTableauHistorique');
         remplirTableauHistorique(data.prestations);
     });
 };
@@ -76,10 +68,6 @@ function remplirTableauHistorique(prestations){
         $('.infoBox').children().css('margin', '10px');
 }
 
-// ATTENTION
-// TODO : Il faudra modifier la mise en forme une fois le css implémentée
-// Parcontre à quoi sert le compteur ici ?
-// C'est juste un oubli du au copier-coller ou il a une utilité ?
 function ajouterPrestation(prestation){
      $('#date').siblings().last().after('<div>' + prestation.heureDebut + '</div>');
      $('#medium').siblings().last().after('<div>' + prestation.mediumStr + '</div>');
@@ -92,7 +80,6 @@ function remplirChampClient(client){
 }
 
 function recupererInfoEmploye( ) {
-    alert("recupInfoEmp");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -102,7 +89,20 @@ function recupererInfoEmploye( ) {
         dataType:'json'
     })
     .done(function(data){
-        remplirChampEmploye(data);
+        if (data.id > 0) {
+            remplirChampEmploye(data);
+            if (data.busy == 1){
+                getInfoClient();
+            }
+            else {
+                alert('Vous n\'avez pas de client actuellement.');
+                window.location = "demandeDeVoyance.html";
+            }
+        }
+        else {
+            alert('Vous allez être redirigé vers la page de connexion. En effet, vous ne vous êtes pas identifié.');
+            window.location = "connexion.html";
+        }
     });
 };
 

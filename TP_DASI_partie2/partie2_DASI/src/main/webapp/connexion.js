@@ -5,11 +5,12 @@
  */
 
 $(document).ready(function () {
-    // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
     $('#seConnecter').on('click', function () {
-        // affichage pour debugage dans la console javascript du navigateur
-        console.log('Click sur le bouton "Accéder au service"');
         connexion();
+    });
+    $('.lesEmp').on('click', function () {
+        var id = $(this).children().first().attr('id');
+        connecterEmploye(id);
     });
 });
 
@@ -22,10 +23,10 @@ function connexion() {
             action: 'ConnexionClient',
             courriel: $('#courriel').val()
         },
-        dataType: 'text'
+        dataType: 'json'
     })
     .done(function (data) {
-        if (data){
+        if (data.success == true){
             window.location="profil.html";
         } else {
             $('#traitementConnexion').html('');
@@ -33,3 +34,23 @@ function connexion() {
         }
     });
 };
+
+function connecterEmploye(idEmploye) {
+    $.ajax({
+       url : './ActionServlet',
+       type: 'POST',
+       data : {
+           action : 'ConnexionEmploye',
+           idEmp : idEmploye
+       },
+       dataType : 'json'
+    })
+    .done(function(data){
+        if (data.success == true){
+            window.location = 'demandeDeVoyance.html'
+        }
+        else {
+            alert('Connexion employé a échoué.')
+        }
+    });
+}

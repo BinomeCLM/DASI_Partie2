@@ -8,35 +8,6 @@ and open the template in the editor.
     Author     : Chris
 */
 
-/*.wrapper {
-    display:grid;
-    grid-template-columns: repeat(12, [col-start] 1fr);
-    grid-gap: 20px;
-    background-color: #D8DCDC; 
-    grid-row: 1 / 2;
-    height:40px;
-}
-
-.logo {
-    grid-column: col-start / span 1;
-    align-content: center;
-    background-color: green;
-}
-
-.centre {
-    grid-column: col-start 2 / span 8;
-    align-content: center;
-    background-color: red;
-}
-
-.possibilite {
-    grid-column: col-start 10/ span 3;
-    grid-row: 1 / 2;
-    vertical-align: middle;
-    justify-self: right;
-    background-color: blue;
-}*/
-
 .wrapper {
   display: flex;
   background-color: #D8DCDC;

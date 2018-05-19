@@ -27,8 +27,8 @@ class ActionRecupInfoClient extends Action {
         
         ClientService clServ = new ClientService();
         Client cl = clServ.getClient(id);
-        System.out.println(cl);
+        
         request.setAttribute("client", cl);
+        
     }
-    
 }

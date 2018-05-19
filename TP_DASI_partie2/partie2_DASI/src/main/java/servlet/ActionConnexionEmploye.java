@@ -21,8 +21,7 @@ public class ActionConnexionEmploye extends Action {
     @Override
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
-        Long idEmp = Long.parseLong(request.getParameter("idEmp")) ; 
-        System.out.println(idEmp);
+        Long idEmp = Long.parseLong(request.getParameter("idEmp"));
         
         EmployeService empServ = new EmployeService();
         Employe emp = empServ.getEmploye(idEmp);

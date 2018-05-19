@@ -33,7 +33,6 @@ class ActionObtenirPrediction extends Action {
         int travailVal = (int) session.getAttribute("valeurtravail");
         
         EmployeService empServ = new EmployeService();
-        //Client cl = empServ.getClient(id);
         Employe emp = empServ.getEmploye(idEmp);
         
         request.setAttribute("dataPrediction", dataPrediction);
@@ -44,5 +43,4 @@ class ActionObtenirPrediction extends Action {
         request.setAttribute("employe", emp);
         
     }
-    
 }

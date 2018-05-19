@@ -8,7 +8,8 @@
 $(document).ready(function () {
     var url = new URL(window.location.href);
     var idEmploye = url.searchParams.get("idEmploye");
-    connecterEmploye(idEmploye);
+    
+    recupererInfoEmploye();
     
     $('#demarrerVoyance').on('click', function () {
         demarrerVoyance();
@@ -26,37 +27,12 @@ function seDeconnecter(){
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
-            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
-            // temps --> voir ActionServlet
+            action:'Deconnecter' 
         },
         dataType:'json'
     })
     .done(function(){
-        alert('deconnexion reussi');
-        // On redirige vers la page de connexion
         window.location="connexion.html";
-    });
-}
-// Méthode permettant de connecter l'employé
-// On le fait ici parce-qu'ils n'ont pas fait de service connecterEmploye
-// donc on le simule ...
-function connecterEmploye(idEmploye) {
-    $.ajax({
-       url : './ActionServlet',
-       type: 'POST',
-       data : {
-           action : 'ConnexionEmploye',
-           idEmp : idEmploye
-       },
-       dataType : 'text'
-    })
-    .done(function(data){
-        if (data){
-            alert('Employe est connecté');
-            recupererInfoEmploye(); // On récupére les infos nécessaires une fois
-            // est connecté
-        }
     });
 }
 
@@ -70,14 +46,12 @@ function demarrerVoyance() {
        dataType : 'json'
     })
     .done(function(data){
-        alert('demarrerVoyance');
-        if (data.id>0){
+        if (data.id > 0){
             openInNewTab("consultation.html");
         }
         else {
             alert('Aucun client pour le moment. Impossible de démarrer une voyance.');
         }
-        
     });
 }
 
@@ -96,7 +70,6 @@ function recupererInfoClientPourEmp() {
         dataType:'json'
     })
     .done(function(data){
-        alert('remplirChampClient');
         remplirChampClient(data);
     });
 };
@@ -111,14 +84,12 @@ function recupererInfoMedium() {
         dataType:'json'
     })
     .done(function(data){
-        alert('remplirChampMedium');
         remplirChampMedium(data);
     });
 };
 
 
 function recupererInfoEmploye( ) {
-    alert("recupInfoEmp");
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -128,10 +99,15 @@ function recupererInfoEmploye( ) {
         dataType:'json'
     })
     .done(function(data){
-        alert('On recupere les infos de lemploye');
         remplirChampEmploye(data);
-        recupererInfoClientPourEmp();
-        recupererInfoMedium();
+        if (data.busy == true) {
+            recupererInfoClientPourEmp();
+            recupererInfoMedium();
+        } 
+        else {
+            $('#infoClient').html('Aucun client pour le moment');
+            $('#consultHisto').attr('href', '#');
+        }
     });
 };
 
@@ -140,14 +116,11 @@ function remplirChampClient(data) {
         var today = new Date();
         var year = Number(data.dateDeNaissance.substr(6, 10)); 
         var age = today.getFullYear() - year;
-        alert(year);
         $('#infoClient').html(data.civilite + '. ' + data.prenom + ' ' + data.nom + ' | '
                 + age + 'ans | #' + data.id);
     }
-    else
-    {
-        $('#incfoClient').html('Aucun client pour le moment');
-        //$('#infoClient').css('display','hide');
+    else {
+        $('#infoClient').html('Problème sur le serveur.');
     }
 }
 
@@ -156,7 +129,7 @@ function remplirChampMedium(data) {
         $('#infoMedium').html('Médium demandé: ' + data.nom + ' | '
             + data.talent + ' | ');
     }
-    /*if (data.metier === 'Tarologue'){
+    if (data.metier === 'Tarologue'){
         $('#infoMedium').append(data.cartes);
     } 
     else if (data.metier === 'Astrologue') {
@@ -165,14 +138,12 @@ function remplirChampMedium(data) {
     else {
         $('#infoMedium').append(data.support);
     } 
-*/}
+}
 
-// Pour la navBar
 function remplirChampEmploye(data) {
     $('.possibilite').prepend(data.nom);
 }
 
-// Pour générer les prédictions
 function genererPrediction () {
     $.ajax({
         url:'./ActionServlet',
@@ -183,16 +154,14 @@ function genererPrediction () {
             sante: $('#sante').val(),
             travail: $('#travail').val()
         },
-        dataType:'text'
+        dataType:'json'
     })
     .done(function(data){
-        alert(data);
-        if (data){
+        if (data.success == true){
             openInNewTab("prediction.html"); 
         }
         else {
-            alert('done_erreur');
-            $('#msgErreur').html("Erreur lors de l'envoie des données pour la prédiction");
+            alert('Aucun client pour le moment.');
         }
     });
 }

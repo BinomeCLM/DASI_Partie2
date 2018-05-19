@@ -5,8 +5,6 @@
  */
 package servlet;
 
-import fr.insalyon.b3427.positif.modele.Client;
-import fr.insalyon.b3427.positif.service.ClientService;
 import java.io.IOException;
 import java.text.ParseException;
 import javax.servlet.ServletException;
@@ -17,22 +15,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author Chris
  */
-class ActionDemanderVoyance extends Action {
+class ActionDeconnexion extends Action {
 
     @Override
     public void executeAction(HttpServletRequest request) throws ServletException, IOException, ParseException {
         
         HttpSession session = request.getSession();
-        Long id = (Long) session.getAttribute("idClient");
+        session.invalidate();
         
-        Long idMedium = Long.parseLong(request.getParameter("id")); 
-            
-        ClientService clServ = new ClientService();
-        Client cl = clServ.getClient(id);
-        
-        boolean etatDemande = clServ.demanderVoyance(cl, idMedium);
-        
-        request.setAttribute("etatDemande", etatDemande);
     }
     
 }

@@ -6,8 +6,8 @@
 
 
 $(document).ready(function () {
+    recupererInfoClient();
     recupererListeMediums();
-    //desactiverLien();
     
     $('#deconnexion').on('click', function () {
         seDeconnecter();
@@ -19,20 +19,16 @@ function seDeconnecter(){
         url:'./ActionServlet',
         type:'POST',
         data: {
-            action:'Deconnecter' // Est-ce qu'on en fait une pour l'employe
-            // et une pour le cient ou alors separement (pour l'instant je fais les deux en meme 
-            // temps --> voir ActionServlet
+            action:'Deconnecter'
         },
         dataType:'json'
     })
     .done(function(){
-        alert('deconnexion reussi');
-        // On redirige vers la page de connexion
         window.location="connexion.html";
     });
 }
 
-function recupererListeMediums() {
+function recupererInfoClient() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -42,9 +38,11 @@ function recupererListeMediums() {
         dataType:'json'
     })
     .done(function(data){
-        alert('remplirchamp');
         remplirChamp(data);
     });
+}
+
+function recupererListeMediums() {
     $.ajax({
         url:'./ActionServlet',
         type:'POST',
@@ -54,16 +52,12 @@ function recupererListeMediums() {
         dataType:'json'
     })
     .done(function(data){
-        alert('ajouterListeMediums');
         var mediums = data.mediums;
         for (var i = 0; i < mediums.length; i++){
             ajouterListeMediums(i, mediums[i]);
         }
         activerCss();
-        activerBoutons(); // On place la fonction ici pour être sur 
-        // que le boutons seront activés une fois qu'ils seront tous chargés
-        // car comme c'est un appel asynchrone, si on le met ailleurs, on ne garantit
-        // pas que tous les boutons seront cliquables
+        activerBoutons();
     });
     
 };
@@ -76,11 +70,6 @@ function remplirChamp(data) {
 function ajouterListeMediums(compteur, data) {
     // Le compteur permet de donner un id unique à chaque bouton 
     // pour ensuite savoir lequel a été cliqué
-    // TODO : Modifier et ne pas faire la mise en forme
-    // grace au tableau car c'est interdit en html 5 mtn !!!!
-    // C'était just epour tester et voir si ça marcher pour l'instant
-    // Idée : mettre de balises div avec attributs ou classe si besoin
-    // et dans le fichier css faire l'alignement grâce à des display ...
     $('#voyants').append('<div class="elemBox"><div class="nommetier">'
             +       '<span class="nom">' + data.nom + '</span>'
             +       '<span class="metier">' + data.metier + '</span>'
@@ -102,7 +91,6 @@ function ajouterListeMediums(compteur, data) {
 }
 
 function activerBoutons() {
-    alert('activerboutton');
     $('button').on('click', function() {
         var id = $(this).attr('id');
         demanderVoyance(id);
@@ -120,11 +108,10 @@ function demanderVoyance(identifiant) {
         dataType: 'json'
     })
     .done(function (data) {
-        alert(data);
-        if(data){
+        if(data.success == true){
             window.location="attenteMedium.html";            
         }else{
-            alert("Voyance n'a pas pu être demandé..");
+            alert("La voyance n'a pas pu être demandée.");
         } 
     });
 }
@@ -135,16 +122,15 @@ function activerCss() {
     $('#voyants').css('justify-content', 'space-around');
     $('#voyants').css('align-items', 'center');
     $('#voyants').css('align-content', 'space-around');
-    //$('#voyant').css('width', '60%');
-    //$('#voyants').css('background-color', 'blue');
+    
     $('.elemBox').css('display','flex');
-    //$('.elemBox').css('background-color', 'red');
     $('.elemBox').css('flex-direction','column');
     $('.elemBox').css('justify-content','flex-start');
     $('.elemBox').css('align-items','strech');
     $('.elemBox').css('align-content','strech');
     $('.elemBox').css('width','50%');
     $('.elemBox').css('margin-bottom','10px');
+    
     $('.nommetier').css('display','flex');
     $('.nommetier').css('flex-direction','row');
     $('.nommetier').css('justify-content','space-between');
@@ -155,6 +141,7 @@ function activerCss() {
     $('.nommetier').css('border-style','solid');
     $('.nommetier').css('border-color','grey');
     $('.nommetier').css('border-width','2px');
+    
     $('.cartes').css('align-self', 'flex-start');
     $('.support').css('align-self', 'flex-start');
     $('description').css('align-self','flex-start');

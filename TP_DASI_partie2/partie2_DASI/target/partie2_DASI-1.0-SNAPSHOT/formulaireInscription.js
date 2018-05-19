@@ -6,12 +6,11 @@
 
 
 $(document).ready(function () {
-    // ajout d'un "handler" sur le clic du bouton de Confirmer Inscription
+    
     $('#validerForm').on('click', function () {
-        // affichage pour debugage dans la console javascript du navigateur
-        console.log('Click sur le bouton "Confirmer inscription"');
         inscription();
     });
+    
 });
 
 function inscription() {
@@ -28,17 +27,14 @@ function inscription() {
             mail: $('#mail').val(),
             adresse: $('#adresse').val()
         },
-        dataType:'text'
+        dataType:'json'
     })
     .done(function(data){
-        alert(data);
-        if (data){
+        if (data.success === true){
             window.location="confEnvoieMail.html";
         }
         else {
-            alert(data);
-            alert('done_erreur');
-            $('#msgErreur').html("Erreur lors de l'inscription");
+            $('#msgErreur').html("Erreur lors de l'inscription.");
         }
     });
 };

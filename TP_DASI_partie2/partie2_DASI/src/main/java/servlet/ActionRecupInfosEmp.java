@@ -26,11 +26,10 @@ public class ActionRecupInfosEmp extends Action {
         
         HttpSession session = request.getSession();
         Long idEmp = (Long) session.getAttribute("idEmp");
-        System.out.println("idEmpRecupInfoDansAction = " + session.getAttribute("idEmp"));
+        
         EmployeService empServ = new EmployeService();
         Employe emp = empServ.getEmploye(idEmp);
-        Prestation p = empServ.getWaitingPrestation(emp);
-             // A quoi ça sert de récupérer la prestation si on en fait rien avec ?
+        
         request.setAttribute("employe",emp);
     }
 }
