@@ -45,6 +45,11 @@ public class ActionInscription extends Action {
         ClientService clServ = new ClientService();
         boolean success = clServ.inscription(cl);
         
+        if(mail=="")
+        {
+            success = false;
+        }
+        
         request.setAttribute("success", success);
         
     }

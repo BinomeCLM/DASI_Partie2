@@ -67,7 +67,7 @@ public class InitService {
         newEmploye(emp1);
         
         Employe emp2 = new Employe();
-        emp2.setNomEmploye("Jean-Marie");
+        emp2.setNomEmploye("Pierre");
         emp2.setTalent("Voyant");
         emp2.setBusy(false);
         newEmploye(emp2);
