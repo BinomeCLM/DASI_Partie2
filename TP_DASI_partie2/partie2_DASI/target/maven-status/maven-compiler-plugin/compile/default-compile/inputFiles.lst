@@ -1,21 +1,21 @@
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoClient.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfosEmp.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionServlet.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoMedium.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionStopPrestation.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\DataJson.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionConnexion.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionObtenirPrediction.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionObtenirListeEmp.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoClientPourConsultation.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoPrestation.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionGenererPrediction.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionDemanderVoyance.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoClientPourEmp.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupListeMed.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionDeconnexion.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\Action.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionInscription.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupListePrest.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionStartPrestation.java
-C:\Users\Chris\Documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionConnexionEmploye.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoClientPourEmp.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoPrestation.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionGenererPrediction.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupListeMed.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\DataJson.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\Action.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionStartPrestation.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionStopPrestation.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionConnexion.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionObtenirPrediction.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoClientPourConsultation.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupListePrest.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionConnexionEmploye.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfosEmp.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoClient.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionDeconnexion.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionRecupInfoMedium.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionDemanderVoyance.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionInscription.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionObtenirListeEmp.java
+L:\Mes documents\GitHub\DASI_Partie2\TP_DASI_partie2\partie2_DASI\src\main\java\servlet\ActionServlet.java

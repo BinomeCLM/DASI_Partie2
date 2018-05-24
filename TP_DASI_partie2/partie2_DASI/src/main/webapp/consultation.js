@@ -99,7 +99,7 @@ function recupererInfoEmploye( ) {
         dataType:'json'
     })
     .done(function(data){
-        if (data.id){
+        if (data.id>0){
             remplirChampEmploye(data);
         }
         else {

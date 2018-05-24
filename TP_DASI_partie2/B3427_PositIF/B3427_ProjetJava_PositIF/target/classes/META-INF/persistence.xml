@@ -13,7 +13,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/positif_cetienne"/>
       <property name="javax.persistence.jdbc.user" value="cetienne"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.password" value="Valentin1907"/>
+      <property name="javax.persistence.jdbc.password" value="valentin1907"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>

@@ -35,21 +35,21 @@ public class InitService {
     }
     public void fillDB(){
         Astrologue as = new Astrologue();
-        as.setNom("Mm MMmm");
-        as.setBio("Aeds qsdkqsd ds dqpsqd dqs, sqdqsd sqpvee.");
+        as.setNom("David Ghandour");
+        as.setBio("Regarde les astres depuis la terre depuis qu'il a 10ans.");
         as.setEcole("INSA");
         as.setPromotion("1998");
         newMedium(as);
         
         Tarologue tl = new Tarologue();
-        tl.setNom("Mdm MMdmm");
-        tl.setBio("A1deds qsddqkqsd ds dqpsqqd dqs, sqdqsd sqpvee.");
+        tl.setNom("Lucie Truon");
+        tl.setBio("Experte avec les cartes et originaire de Lyon, elle en a fait sa spécialité.");
         tl.setCartes("Tarot de Lyon");
         newMedium(tl);
         
         Voyant voy = new Voyant();
         voy.setNom("Mme Irma");
-        voy.setBio("La bio");
+        voy.setBio("La technique de la boule de cristal est ancrée dans ses gênes depuis l'enfance.");
         voy.setSupport("Boule de cristal");
         newMedium(voy);
         
