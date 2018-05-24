@@ -11,6 +11,9 @@ $(document).ready(function () {
         inscription();
     });
     
+    $('#accueil').on('click', function () {
+        window.location = "index.html"
+    });
 });
 
 function inscription() {

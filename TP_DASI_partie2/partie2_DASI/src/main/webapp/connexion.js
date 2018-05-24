@@ -8,9 +8,14 @@ $(document).ready(function () {
     $('#seConnecter').on('click', function () {
         connexion();
     });
+    
     $('.lesEmp').on('click', function () {
         var id = $(this).children().first().attr('id');
         connecterEmploye(id);
+    });
+    
+    $('#accueil').on('click', function () {
+        window.location = "index.html"
     });
 });
 

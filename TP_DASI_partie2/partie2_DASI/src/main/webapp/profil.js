@@ -12,6 +12,10 @@ $(document).ready(function () {
     $('#deconnexion').on('click', function () {
         seDeconnecter();
     });
+    
+    $('#accueil').on('click', function () {
+        window.location = "profil.html"
+    });
 });
 
 function seDeconnecter(){

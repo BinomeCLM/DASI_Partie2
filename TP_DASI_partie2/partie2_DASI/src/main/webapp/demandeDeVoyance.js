@@ -20,6 +20,12 @@ $(document).ready(function () {
     $('#deconnexion').on('click', function () {
         seDeconnecter();
     });
+    $('#tabLien').on('click', function () {
+        window.location = "tableauDeBord.html"
+    });
+    $('#accueil').on('click', function () {
+        window.location = "tableauDeBord.html"
+    });
 });
 
 function seDeconnecter(){
@@ -46,10 +52,12 @@ function demarrerVoyance() {
        dataType : 'json'
     })
     .done(function(data){
-        if (data.id > 0){
+        if (data.client > 0)
+        {
             openInNewTab("consultation.html");
         }
-        else {
+        else 
+        {
             alert('Aucun client pour le moment. Impossible de démarrer une voyance.');
         }
     });

@@ -188,7 +188,7 @@ public class DataJson {
             jsonPrestation.addProperty("medium", (pr.getMedium()).getId());
         }
         else {
-            jsonPrestation.addProperty("id", -1);
+            jsonPrestation.addProperty("client", -1);
         }
         
         response.setContentType("application/json");

@@ -32,3 +32,19 @@ p {
     text-decoration: underline;
     cursor: pointer;
 }
+
+#tabLien {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#accueil {
+    margin-left: 5px;
+    margin-top: 5px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -11,6 +11,10 @@ $(document).ready(function () {
     $('#deconnexion').on('click', function () {
         seDeconnecter();
     });
+    
+    $('#accueil').on('click', function () {
+        window.location = "profil.html"
+    });
 }); 
 
 function seDeconnecter(){
@@ -37,7 +41,6 @@ function recupererInfoClient() {
         dataType:'json'
     })
     .done(function(data){
-        alert(data);
         if (data.id >= 0){
             remplirChamp(data);
         }

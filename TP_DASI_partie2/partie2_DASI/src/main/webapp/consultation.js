@@ -14,6 +14,14 @@ $(document).ready(function () {
     $('#deconnexion').on('click', function () {
         seDeconnecter();
     });
+    
+    $('#tabLien').on('click', function () {
+        window.location = "tableauDeBord.html"
+    });
+    
+    $('#accueil').on('click', function () {
+        window.location = "tableauDeBord.html"
+    });
 });
 
 function seDeconnecter(){
