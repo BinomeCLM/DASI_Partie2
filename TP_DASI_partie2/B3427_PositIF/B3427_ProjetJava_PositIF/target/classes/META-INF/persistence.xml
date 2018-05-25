@@ -10,10 +10,10 @@
     <class>fr.insalyon.b3427.positif.modele.Voyant</class>
     <class>fr.insalyon.b3427.positif.modele.Astrologue</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Positif"/>
-      <property name="javax.persistence.jdbc.user" value="B3142"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/positif_cetienne"/>
+      <property name="javax.persistence.jdbc.user" value="cetienne"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.password" value="B3142"/>
+      <property name="javax.persistence.jdbc.password" value="tomcat"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>

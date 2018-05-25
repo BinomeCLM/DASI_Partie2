@@ -22,7 +22,7 @@ function inscription() {
         type:'POST',
         data: {
             action:'ConfirmationInscription',
-            civilite: $('civilite option:selected').text(),
+            civilite: $('#civilite option:selected').val(),
             nom: $('#nom').val(),
             prenom: $('#prenom').val(),
             dateNaissance: $('#dateNaissance').val(),
